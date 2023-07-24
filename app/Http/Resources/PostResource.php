@@ -20,9 +20,12 @@ class PostResource extends JsonResource
             'created_at' => $this->created_at,
             'text_content' => $this->text_content,
             'image' => $this->image ? asset($this->image) : null,
+            'type' => $this->type,
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'likes' => LikeResource::collection($this->whenLoaded('likes')),
-            'shares' => ShareResource::collection($this->whenLoaded('shares'))
+            'shares' => PostResource::collection($this->whenLoaded('shares')),
+            'sharedPost' => new PostResource($this->whenLoaded('sharedPost')),
+            'sharedComment' => new CommentResource($this->whenLoaded('sharedComment'))
         ];
     }
 }

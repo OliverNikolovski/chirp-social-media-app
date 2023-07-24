@@ -28,7 +28,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): JsonResponse|PostResource
     {
-        $attributes = $request->all();
+        $attributes = $request->validated();
         $path = null;
 
         if ($request->file('image') != null)
@@ -36,7 +36,6 @@ class PostController extends Controller
 
         if ($path === false)
             return response()->json(['message' => 'There was a problem with the post image.'], 500);
-
 
         $attributes['user_id'] = auth()->id();
         $attributes['image'] = $path;
@@ -48,7 +47,7 @@ class PostController extends Controller
      */
     public function show(Post $post): PostResource
     {
-        $loadMissing = ['likes', 'shares'];
+        $loadMissing = ['likes', 'shares', 'sharedPost', 'sharedComment'];
 
         if (request()->query('loadComments'))
             $loadMissing[] = 'comments';
@@ -64,7 +63,7 @@ class PostController extends Controller
     {
         $this->authorize('update', $post);
 
-        $data = $request->validated(); // This only includes validated data
+        $data = $request->only(['text_content', 'image']);
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('post-images');

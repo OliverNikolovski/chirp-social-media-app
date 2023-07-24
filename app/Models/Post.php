@@ -15,7 +15,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['text_content', 'image', 'user_id'];
+    protected $fillable = ['text_content', 'image', 'user_id', 'post_id', 'comment_id', 'type'];
 
     public function user(): BelongsTo
     {
@@ -36,4 +36,11 @@ class Post extends Model
         return $this->hasMany(Post::class);
     }
 
+    public function sharedPost(): BelongsTo {
+        return $this->belongsTo(Post::class, 'post_id');
+    }
+
+    public function sharedComment(): BelongsTo {
+        return $this->belongsTo(Comment::class, 'comment_id');
+    }
 }

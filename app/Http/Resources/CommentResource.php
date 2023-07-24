@@ -24,7 +24,7 @@ class CommentResource extends JsonResource
             'image' => $this->image ? asset($this->image) : null,
             'child_comments' => CommentResource::collection($this->whenLoaded('childComments')),
             'likes' => LikeResource::collection($this->whenLoaded('likes')),
-            'shares' => ShareResource::collection($this->whenLoaded('shares'))
+            'shares' => PostResource::collection($this->whenLoaded('shares'))
         ];
     }
 }

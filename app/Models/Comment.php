@@ -42,6 +42,6 @@ class Comment extends Model
 
     public function shares(): HasMany
     {
-        return $this->hasMany(Share::class);
+        return $this->hasMany(Post::class);
     }
 }

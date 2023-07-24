@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePostRequest extends FormRequest
 {
@@ -23,8 +24,22 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'text_content' => ['required_without:image', 'string','max:600'],
-            'image' => ['required_without:text_content', 'image', 'mimes:jpeg,png', 'max:2048']
+            'type' => [
+                'required',
+                Rule::in(['p', 's']),
+            ],
+            'text_content' => [
+                Rule::when($this->type === 'p', ['required_without:image', 'string', 'max:600']),
+            ],
+            'image' => [
+                Rule::when($this->type === 'p', ['required_without:text_content', 'image', 'mimes:jpeg,png', 'max:2048']),
+            ],
+            'post_id' => [
+                Rule::when($this->type === 's', ['required_without:comment_id', 'integer', 'exists:posts,id'])
+            ],
+            'comment_id' => [
+                Rule::when($this->type === 's', ['required_without:post_id', 'integer', 'exists:comments,id'])
+            ]
         ];
     }
 }
