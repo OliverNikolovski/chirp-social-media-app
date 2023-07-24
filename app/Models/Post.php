@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static create(array $all)
+ * @method static whereIn(string $string, \Closure $param)
  * @property mixed $user_id
  */
 class Post extends Model

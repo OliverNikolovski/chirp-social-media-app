@@ -5,23 +5,35 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Http\Resources\CommentCollection;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request): JsonResponse|CommentCollection
     {
-        //
+        $postId = $request->query('post_id');
+
+        if (!$postId) {
+            return response()->json(['error' => 'Missing post_id query parameter.'], 400);
+        }
+
+        $comments = Comment::where('post_id', $postId)
+            ->orderBy('created_at', 'desc')  // Order by date from newest to oldest
+            ->paginate(10)  // Paginate results, 10 per page
+            ->appends($request->query());  // Append all request query parameters except 'page'
+            //->appends($request->except('page'));
+
+        return new CommentCollection($comments);
     }
+
 
     /**
      * Store a newly created resource in storage.

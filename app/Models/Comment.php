@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static create(array $attributes)
+ * @method static where(string $string, array|string $postId)
  */
 class Comment extends Model
 {
