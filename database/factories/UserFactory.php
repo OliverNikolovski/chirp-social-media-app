@@ -26,7 +26,8 @@ class UserFactory extends Factory
             'bio' => $this->faker->optional(0.3)->realTextBetween(50, 500),
             'location' => $this->faker->optional(0.3)->address(),
             'website' => $this->faker->optional(0.7)->url(),
-            'birthdate' => $this->faker->optional(0.3)->dateTimeBetween('-60 years', '-18 years')
+            'birthdate' => $this->faker->optional(0.3)->dateTimeBetween('-60 years', '-18 years'),
+            'is_admin' => $this->faker->boolean(5)
         ];
     }
 

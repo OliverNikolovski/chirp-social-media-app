@@ -35,7 +35,7 @@ class User extends Authenticatable
 
     public function shares(): HasMany
     {
-        return $this->hasMany(Share::class);
+        return $this->hasMany(Post::class);
     }
 
     /**

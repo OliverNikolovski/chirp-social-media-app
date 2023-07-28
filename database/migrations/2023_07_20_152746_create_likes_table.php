@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Post::class)->nullable()->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Comment::class)->nullable()->constrained()->cascadeOnDelete();
-            $table->char('type', 1);
+            $table->char('type', 1); // p - post like, c - comment like
         });
     }
 

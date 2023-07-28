@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static create(array $attributes)
- * @method static where(string $string, array|string $postId)
+ * @method static count()
  */
 class Comment extends Model
 {
@@ -45,4 +45,19 @@ class Comment extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted(): void
+    {
+        static::creating(function ($comment) {
+            if ($comment->parent_comment_id == $comment->id) {
+                $comment->parent_comment_id = null;
+            }
+        });
+    }
+
 }

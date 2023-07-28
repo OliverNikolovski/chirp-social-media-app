@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('website')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('profile_picture')->nullable();
+            $table->boolean('is_admin')->default(false);
         });
     }
 
