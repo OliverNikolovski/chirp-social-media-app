@@ -21,9 +21,12 @@ class PostResource extends JsonResource
             'text_content' => $this->text_content,
             'image' => $this->image ? asset($this->image) : null,
             'type' => $this->type,
+            'likes_count' => $this->likes_count,
+            'shares_count' => $this->shares_count,
+            'comments_count' => $this->comments_count,
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'likes' => LikeResource::collection($this->whenLoaded('likes')),
-            'shares' => PostResource::collection($this->whenLoaded('shares')),
+            //'likes' => LikeResource::collection($this->whenLoaded('likes')),
+            //'shares' => PostResource::collection($this->whenLoaded('shares')),
             'sharedPost' => new PostResource($this->whenLoaded('sharedPost')),
             'sharedComment' => new CommentResource($this->whenLoaded('sharedComment'))
         ];

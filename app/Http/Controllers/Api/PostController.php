@@ -23,11 +23,12 @@ class PostController extends Controller
         $loggedInUserId = auth()->id();
 
         // Get all posts from followed users
-        $posts = Post::whereIn('user_id', function($query) use ($loggedInUserId) {
-            $query->select('followed_id')
-                ->from('follows')
-                ->where('follower_id', $loggedInUserId);
-        })
+        $posts = Post::withCount(['likes', 'shares', 'comments'])
+            ->whereIn('user_id', function ($query) use ($loggedInUserId) {
+                $query->select('followed_id')
+                    ->from('follows')
+                    ->where('follower_id', $loggedInUserId);
+            })
             ->orderBy('created_at', 'desc')  // Order by date from newest to oldest
             ->paginate()
             ->appends($request->query());
@@ -57,7 +58,8 @@ class PostController extends Controller
      */
     public function show(Post $post): PostResource
     {
-        $loadMissing = ['likes', 'shares', 'sharedPost', 'sharedComment'];
+        //$loadMissing = ['likes', 'shares', 'sharedPost', 'sharedComment'];
+        $loadMissing = ['sharedPost', 'sharedComment'];
 
         if (request()->query('loadComments'))
             $loadMissing[] = 'comments';
@@ -78,8 +80,7 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('post-images');
             $data['image'] = $path;
-        }
-        else {
+        } else {
             $data['image'] = null;
         }
 
