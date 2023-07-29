@@ -43,7 +43,7 @@ class AuthController extends Controller
                 'profile_picture' => $path,
             ]);
 
-            $api_token = $user->createToken('chirp api token', ['user'])->plainTextToken;
+            $access_token = $user->createToken('chirp api token')->plainTextToken;
 
             DB::commit();
         } catch (Exception) {
@@ -51,15 +51,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Failed to register the user.'], 500);
         }
 
-        $userResource = new UserResource($user);
-        $profile_picture_url = $user->profile_picture ?
-            asset($user->profile_picture) : asset('profile-pictures/default.png');
-        $response = [
-            'user_info' => $userResource,
-            'profile_picture_url' => $profile_picture_url,
-            'api_token' => $api_token
-        ];
-        return response($response, 201);
+        return response($access_token, 201);
     }
 
     /**
@@ -77,17 +69,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             /** @var User $user */
             $user = Auth::user();
-            $token = $user->createToken('chirp api token', ['user'])->plainTextToken;
-
-            $userResource = new UserResource($user);
-            $profile_picture_url = $user->profile_picture ?
-                asset($user->profile_picture) : asset('profile-pictures/default.png');
-            $response = [
-                'user_info' => $userResource,
-                'profile_picture_url' => asset($profile_picture_url),
-                'api_token' => $token
-            ];
-            return response($response, 200);
+            $access_token = $user->createToken('chirp api token')->plainTextToken;
+            return response($access_token, 200);
         } else {
             throw ValidationException::withMessages([
                 'username' => ['The provided credentials are incorrect.'],
@@ -112,6 +95,13 @@ class AuthController extends Controller
         $user->tokens()->delete();
 
         return response()->json(['message' => 'Logged out from all devices successfully']);
+    }
+
+    public function getAuthenticatedUser(): UserResource|null
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        return $user ? new UserResource($user) : null;
     }
 
 }

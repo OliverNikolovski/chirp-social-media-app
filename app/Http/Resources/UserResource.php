@@ -23,7 +23,9 @@ class UserResource extends JsonResource
             'bio' => $this->bio,
             'location' => $this->location,
             'website' => $this->website,
-            'birthdate' => $this->birthdate
+            'birthdate' => $this->birthdate,
+            'profile_picture' => $this->profile_picture ?
+                asset($this->profile_picture) : asset('profile-pictures/default.png')
         ];
     }
 }
