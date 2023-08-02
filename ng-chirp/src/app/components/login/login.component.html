@@ -1,0 +1,21 @@
+<div id="login-page-wrapper">
+  <div id="login-card">
+    <div id="logo-container">
+      <img src="/assets/logos/chirp-high-resolution-logo-color-on-transparent-background.png" id="chirp-logo"/>
+    </div>
+    <h1 id="login-card-heading">Sign in to Chirp</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" id="login-form">
+      <div id="login-form-inputs">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input type="text" matInput placeholder="Enter your username" formControlName="username">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input type="password" matInput placeholder="Enter your password" formControlName="password">
+        </mat-form-field>
+      </div>
+      <button type="submit" mat-fab extended color="primary">Login</button>
+    </form>
+  </div>
+</div>

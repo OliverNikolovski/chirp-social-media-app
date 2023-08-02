@@ -51,7 +51,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Failed to register the user.'], 500);
         }
 
-        return response($access_token, 201);
+        return response(['access_token', $access_token], 201);
     }
 
     /**
@@ -70,7 +70,7 @@ class AuthController extends Controller
             /** @var User $user */
             $user = Auth::user();
             $access_token = $user->createToken('chirp api token')->plainTextToken;
-            return response($access_token, 200);
+            return response(['access_token' => $access_token], 200);
         } else {
             throw ValidationException::withMessages([
                 'username' => ['The provided credentials are incorrect.'],
