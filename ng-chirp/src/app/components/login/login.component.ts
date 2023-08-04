@@ -2,6 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {NotificationService} from "../../services/notification.service";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthenticationService,
-              private router: Router) {
+              private router: Router,
+              private notificationService: NotificationService) {
     this.loginForm = this.buildLoginForm();
   }
 
@@ -26,11 +29,8 @@ export class LoginComponent implements OnInit {
     const password = this.passwordControl.value;
     this.authService.login(username, password)
       .subscribe({
-        next: result => {
-          console.log('result',result);
-          this.router.navigate(['home']);
-        },
-        error: error => console.log('error:', error.error.message)
+        next: () => this.router.navigate(['home']),
+        error: error => this.notificationService.error(error.error.message)
       });
   }
 

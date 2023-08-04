@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthenticationService} from "../../services/authentication.service";
-import {Authentication} from "../../models/authentication";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-home',
@@ -8,18 +8,14 @@ import {Authentication} from "../../models/authentication";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  authentication?: Authentication;
+  authenticatedUser?: User
 
   constructor(private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    console.log('in on init')
-    this.authService.accessChange$.subscribe(authentication => {
-      console.log('vlegov')
-      this.authentication = authentication;
-      console.log('authentication:',this.authentication);
-    });
+    this.authService.getAuthenticatedUser()
+      .subscribe(user => this.authenticatedUser = user);
   }
 
 }

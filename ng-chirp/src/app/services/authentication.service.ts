@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
-import {map, Observable, ReplaySubject, switchMap} from "rxjs";
-import {Authentication} from "../models/authentication";
+import {Observable, tap} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user";
 import {AccessTokenResponse} from "../models/access-token-response";
@@ -17,31 +16,31 @@ export class AuthenticationService {
   };
   private baseUrl = 'http://localhost:8000/api';
 
-  private subject = new ReplaySubject<Authentication>(1);
-  accessChange$ = this.subject.asObservable();
-
   constructor(private http: HttpClient) {
   }
 
-  login(username: string, password: string): Observable<Authentication> {
+  login(username: string, password: string): Observable<AccessTokenResponse> {
     const loginRequest = {username, password};
     return this.http.post<AccessTokenResponse>(`${this.baseUrl}/login`, loginRequest, this.httpOptions)
       .pipe(
-        switchMap(({access_token}) =>
-          this.getAuthenticatedUser(access_token)
-            .pipe(
-              map(user => {
-                const authentication = ({access_token, user}) as Authentication;
-                this.subject.next(authentication);
-                return authentication;
-              }),
-            ))
+        tap(accessTokenResponse => localStorage.setItem("accessToken", accessTokenResponse.access_token))
       );
   }
 
-  getAuthenticatedUser(token: string): Observable<User> {
+  // to do
+  logout() {
+
+  }
+
+  // to do
+  register() {
+
+  }
+
+  getAuthenticatedUser(): Observable<User> {
+    const accessToken = localStorage.getItem("accessToken");
     const headers = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${accessToken}`
     }
     return this.http.get<User>(`${this.baseUrl}/authentication`, {headers});
   }

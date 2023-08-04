@@ -8,6 +8,20 @@
   box-sizing: border-box;
 }
 
-html, body { height: 100%; }
+html, body {
+  height: 100%;
+}
 
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-snack-bar-container {
+  &.snack-bar-error {
+    --mdc-snackbar-container-color: red
+  }
+}
+
+snack-bar-error {
+  background-color: red;
+}
