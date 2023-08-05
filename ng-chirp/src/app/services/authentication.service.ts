@@ -3,6 +3,7 @@ import {Observable, tap} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user";
 import {AccessTokenResponse} from "../models/access-token-response";
+import {UserRegisterRequest} from "../requests/user-register.request";
 
 @Injectable({
   providedIn: 'root'
@@ -23,18 +24,29 @@ export class AuthenticationService {
     const loginRequest = {username, password};
     return this.http.post<AccessTokenResponse>(`${this.baseUrl}/login`, loginRequest, this.httpOptions)
       .pipe(
-        tap(accessTokenResponse => localStorage.setItem("accessToken", accessTokenResponse.access_token))
+        tap(accessTokenResponse => this.saveAccessToken(accessTokenResponse))
       );
   }
 
-  // to do
-  logout() {
-
+  logout():Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/logout`, {})
+      .pipe(
+        tap(_ => this.removeAccessToken())
+      );
   }
 
-  // to do
-  register() {
+  logoutFromAllDevices(): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/logout-from-all-devices`, {})
+      .pipe(
+        tap(_ => this.removeAccessToken())
+      );
+  }
 
+  register(request: UserRegisterRequest): Observable<AccessTokenResponse> {
+    return this.http.post<AccessTokenResponse>(`${this.baseUrl}/register`, request, this.httpOptions)
+      .pipe(
+        tap(accessTokenResponse => this.saveAccessToken(accessTokenResponse))
+      );
   }
 
   getAuthenticatedUser(): Observable<User> {
@@ -43,6 +55,18 @@ export class AuthenticationService {
       Authorization: `Bearer ${accessToken}`
     }
     return this.http.get<User>(`${this.baseUrl}/authentication`, {headers});
+  }
+
+  getAccessToken(): string | null {
+    return localStorage.getItem('accessToken');
+  }
+
+  private saveAccessToken(accessTokenResponse: AccessTokenResponse): void {
+    localStorage.setItem('accessToken', accessTokenResponse.access_token);
+  }
+
+  private removeAccessToken(): void {
+    localStorage.removeItem('accessToken');
   }
 
 }

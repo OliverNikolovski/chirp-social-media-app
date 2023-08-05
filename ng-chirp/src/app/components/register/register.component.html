@@ -1,0 +1,72 @@
+<div class="register-page-wrapper">
+  <div class="register-card">
+    <h1>Register</h1>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div class="step step-1" *ngIf="step === 1">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput type="text" placeholder="Username" formControlName="username"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" placeholder="Password" formControlName="password"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Confirm password</mat-label>
+          <input matInput type="password" placeholder="Confirm password" formControlName="password_confirmation"/>
+        </mat-form-field>
+      </div>
+      <div class="step step-2" *ngIf="step === 2">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput type="text" placeholder="What's your name" formControlName="name"/>
+        </mat-form-field>
+      </div>
+      <div class="step step-3" *ngIf="step === 3">
+        <h2>The following information is optional and you can also set or update it later if you want</h2>
+        <div class="profile-pic-wrapper">
+          <label for="profile-pic">Add a profile picture</label>
+          <input type="file" placeholder="Add a profile picture" formControlName="profile_picture"
+                 accept="image/jpeg,image/png" id="profile-pic"/>
+        </div>
+        <mat-form-field>
+          <mat-label>Bio</mat-label>
+          <textarea matInput cdkTextareaAutosize placeholder="Say something about you..."
+                    formControlName="bio"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Address Location</mat-label>
+          <textarea matInput cdkTextareaAutosize placeholder="Where do you live?" formControlName="location"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Website</mat-label>
+          <input matInput type="text" placeholder="Do you have a website? ex. https://wwww.john-doe.com"
+                 formControlName="website"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Birthdate</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="birthdate" placeholder="MM/DD/YYYY">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="action-buttons-wrapper">
+        <button type="button" mat-flat-button color="primary" class="action-button next-btn"
+                *ngIf="step !== 3"
+                (click)="nextStep()"
+                [disabled]="cannotGoNextStep()">
+          Next
+        </button>
+        <button type="button" mat-stroked-button color="primary" class="action-button back-btn"
+                [disabled]="step === 1"
+                (click)="prevStep()">
+          Back
+        </button>
+        <button type="submit" mat-flat-button color="primary" class="action-button submit-btn"
+                *ngIf="step === 3" [disabled]="formGroup.invalid">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
