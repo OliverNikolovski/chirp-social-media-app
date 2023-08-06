@@ -26,8 +26,8 @@
         <h2>The following information is optional and you can also set or update it later if you want</h2>
         <div class="profile-pic-wrapper">
           <label for="profile-pic">Add a profile picture</label>
-          <input type="file" placeholder="Add a profile picture" formControlName="profile_picture"
-                 accept="image/jpeg,image/png" id="profile-pic"/>
+          <input type="file" placeholder="Add a profile picture"
+                 accept="image/jpeg,image/png" id="profile-pic" (change)="onFileChange($event)"/>
         </div>
         <mat-form-field>
           <mat-label>Bio</mat-label>

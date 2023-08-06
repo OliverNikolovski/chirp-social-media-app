@@ -7,5 +7,5 @@ export interface UserRegisterRequest {
   location: string | null;
   website: string | null;
   birthdate: Date | null;
-  profile_picture: string | null;
+  profile_picture: File | null;
 }

@@ -51,7 +51,8 @@ class AuthController extends Controller
             return response()->json(['message' => 'Failed to register the user.'], 500);
         }
 
-        return response(['access_token', $access_token], 201);
+        Auth::attempt($request->only('username', 'password'));
+        return response(['access_token' => $access_token], 201);
     }
 
     /**

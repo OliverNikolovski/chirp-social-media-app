@@ -43,7 +43,20 @@ export class AuthenticationService {
   }
 
   register(request: UserRegisterRequest): Observable<AccessTokenResponse> {
-    return this.http.post<AccessTokenResponse>(`${this.baseUrl}/register`, request, this.httpOptions)
+    const formData = new FormData();
+    formData.set('username', request.username);
+    formData.set('password', request.password);
+    formData.set('password_confirmation', request.password_confirmation);
+    formData.set('name', request.name);
+    request.bio && formData.set('bio', request.bio);
+    request.location && formData.set('location', request.location);
+    request.website && formData.set('website', request.website);
+    request.birthdate && formData.set('birthdate', request.birthdate.toISOString());
+    request.profile_picture && formData.set('profile_picture', request.profile_picture);
+    const headers = {
+      'Accept': 'application/json'
+    }
+    return this.http.post<AccessTokenResponse>(`${this.baseUrl}/register`, formData, {headers})
       .pipe(
         tap(accessTokenResponse => this.saveAccessToken(accessTokenResponse))
       );

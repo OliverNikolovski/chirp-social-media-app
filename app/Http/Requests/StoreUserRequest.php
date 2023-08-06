@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
             'name' => ['required', 'max:255'],
             'username' => ['required', 'min:6', 'max:255', 'unique:users,username'],
             'password' => ['required', 'min:8', 'confirmed'],
-            'bio' => ['sometimes', 'min:50'],
+            'bio' => ['sometimes', 'max: 5000'],
             'location' => ['sometimes', 'max:2000'],
             'website' => ['sometimes', 'max:2000'],
             'birthdate' => ['sometimes', 'date'],
