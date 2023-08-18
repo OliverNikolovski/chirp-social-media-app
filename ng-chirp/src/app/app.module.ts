@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './components/app/app.component';
 import {LoginComponent} from "./components/login/login.component";
@@ -16,6 +15,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {RegisterComponent} from "./components/register/register.component";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     ReactiveFormsModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

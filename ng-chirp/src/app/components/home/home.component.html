@@ -1,3 +1,35 @@
-<h1>Welcome to home component</h1>
-<p>{{this.authenticatedUser?.data?.name}}</p>
-<p>{{this.authenticatedUser?.data?.username}}</p>
+<div class="home-page-wrapper">
+  <div class="panel left-panel">
+    <nav class="navigation">
+      <a class="nav-item" href="#">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+      <a class="nav-item" href="#">
+        <mat-icon>notifications</mat-icon>
+        <span>Notifications</span>
+      </a>
+      <a class="nav-item" href="#">
+        <mat-icon>message</mat-icon>
+        <span>Messages</span>
+      </a>
+      <a class="nav-item" href="#">
+        <mat-icon>spatial_audio_off</mat-icon>
+        <span>Followers</span>
+      </a>
+      <a class="nav-item" href="#">
+        <mat-icon>spatial_audio</mat-icon>
+        <span>Following</span>
+      </a>
+      <a class="nav-item" href="#">
+        <mat-icon>face</mat-icon>
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+  <div class="panel center-panel">
+    <div class="controls-area"></div>
+    <div class="posts-area"></div>
+  </div>
+  <div class="panel right-panel"></div>
+</div>

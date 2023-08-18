@@ -1,0 +1,45 @@
+.home-page-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  height: 100%;
+  overflow-y: auto;
+}
+.panel {
+  height: 100%;
+}
+
+.left-panel {
+ .navigation {
+   display: flex;
+   flex-direction: column;
+
+   .nav-item {
+     text-align: center;
+     height: 5rem;
+     vertical-align: center;
+     text-underline: none;
+   }
+ }
+}
+
+.center-panel {
+  display: flex;
+  flex-direction: column;
+
+  .controls-area {
+    height: 50%;
+    background-color: green;
+    border: 1px solid black;
+  }
+
+  .posts-area {
+    height: 100%;
+    background-color: blueviolet;
+    border: 1px solid black;
+  }
+}
+
+.right-panel {
+  background-color: blue;
+  border: 1px solid black;
+}
