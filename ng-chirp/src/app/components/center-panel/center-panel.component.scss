@@ -1,0 +1,16 @@
+.center-panel {
+  display: flex;
+  flex-direction: column;
+
+  .controls-area {
+    height: 50%;
+    background-color: green;
+    border: 1px solid black;
+  }
+
+  .posts-area {
+    height: 100%;
+    background-color: blueviolet;
+    border: 1px solid black;
+  }
+}

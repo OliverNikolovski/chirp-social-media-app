@@ -7,7 +7,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {HomeComponent} from "./components/home/home.component";
@@ -16,13 +16,19 @@ import {RegisterComponent} from "./components/register/register.component";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatIconModule} from '@angular/material/icon';
+import {LeftPanelComponent} from "./components/left-panel/left-panel.component";
+import {CenterPanelComponent} from "./components/center-panel/center-panel.component";
+import {RightPanelComponent} from "./components/right-panel/right-panel.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    LeftPanelComponent,
+    CenterPanelComponent,
+    RightPanelComponent
   ],
   imports: [
     BrowserModule,
