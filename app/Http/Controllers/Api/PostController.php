@@ -23,7 +23,16 @@ class PostController extends Controller
         $loggedInUserId = auth()->id();
 
         // Get all posts from followed users
-        $posts = Post::withCount(['likes', 'shares', 'comments'])
+//        $posts = Post::withCount(['likes', 'shares', 'comments'])
+//            ->whereIn('user_id', function ($query) use ($loggedInUserId) {
+//                $query->select('followed_id')
+//                    ->from('follows')
+//                    ->where('follower_id', $loggedInUserId);
+//            })
+//            ->orderBy('created_at', 'desc')  // Order by date from newest to oldest
+//            ->paginate()
+//            ->appends($request->query());
+        $posts = Post::with(['user', 'likes', 'shares', 'comments'])
             ->whereIn('user_id', function ($query) use ($loggedInUserId) {
                 $query->select('followed_id')
                     ->from('follows')
@@ -32,6 +41,7 @@ class PostController extends Controller
             ->orderBy('created_at', 'desc')  // Order by date from newest to oldest
             ->paginate()
             ->appends($request->query());
+
 
         return new PostCollection($posts);
     }

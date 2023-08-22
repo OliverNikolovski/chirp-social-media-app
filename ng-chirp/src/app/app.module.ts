@@ -19,6 +19,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {LeftPanelComponent} from "./components/left-panel/left-panel.component";
 import {CenterPanelComponent} from "./components/center-panel/center-panel.component";
 import {RightPanelComponent} from "./components/right-panel/right-panel.component";
+import {TimelineComponent} from "./components/posts/timeline.component";
+import {AddPostComponent} from "./components/add-post/add-post.component";
+import {PostComponent} from "./components/post/post.component";
+import {RelativeTimePipe} from "./pipes/relative-time.pipe";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -28,7 +33,11 @@ import {RightPanelComponent} from "./components/right-panel/right-panel.componen
     RegisterComponent,
     LeftPanelComponent,
     CenterPanelComponent,
-    RightPanelComponent
+    RightPanelComponent,
+    TimelineComponent,
+    AddPostComponent,
+    PostComponent,
+    RelativeTimePipe
   ],
   imports: [
     BrowserModule,

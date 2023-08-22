@@ -1,6 +1,6 @@
 export interface Post {
   id: number;
-  user_id: number;
+  user: UserInfo;
   created_at: Date;
   text_content: string;
   image: string;
@@ -8,4 +8,12 @@ export interface Post {
   likes_count: number;
   shares_count: number;
   comments_count: number;
+  comments: Comment[];
+}
+
+interface UserInfo {
+  id: number;
+  name: string;
+  profile_picture: string;
+  username: string;
 }

@@ -2,15 +2,14 @@
   display: flex;
   flex-direction: column;
 
-  .controls-area {
-    height: 50%;
-    background-color: green;
+  app-timeline {
+    height: 100%;
     border: 1px solid black;
   }
 
-  .posts-area {
-    height: 100%;
-    background-color: blueviolet;
+  app-add-post {
+    height: 50%;
+    background-color: green;
     border: 1px solid black;
   }
 }
