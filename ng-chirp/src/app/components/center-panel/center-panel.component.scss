@@ -1,15 +1,14 @@
 .center-panel {
   display: flex;
   flex-direction: column;
+  border: 1px solid #f1f4f5;
+  border-collapse: collapse;
 
-  app-timeline {
-    height: 100%;
-    border: 1px solid black;
+  h1 {
+    font-weight: 550;
   }
 
-  app-add-post {
-    height: 50%;
-    background-color: green;
-    border: 1px solid black;
+  .heading {
+    padding-left: 1rem;
   }
 }

@@ -17,7 +17,7 @@ export class TimelineComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getPosts()
       .subscribe(postsResponse => {
-        console.log('posts:',postsResponse.data);
+        console.log('timeline:',postsResponse.data);
         this.posts = postsResponse.data as Post[];
       });
   }

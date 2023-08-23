@@ -1,1 +1,54 @@
+.container {
+  display: flex;
+  padding: 1rem 3rem 1rem 1rem;
+  font-size: 1.1rem;
+}
 
+input-post {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.user-profile-picture-container {
+  width: fit-content;
+  margin-right: 1rem;
+}
+
+.user-profile-picture {
+  width: 3rem;
+}
+
+form {
+  flex-grow: 1;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-image-input-icon {
+  width: 2rem;
+  height: 2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.post-image-input-icon path {
+  fill: #3f51b5;
+}
+
+.input-post {
+  resize: none;
+  height: 50px;
+  overflow-y: hidden;
+}

@@ -32,7 +32,8 @@ class PostController extends Controller
 //            ->orderBy('created_at', 'desc')  // Order by date from newest to oldest
 //            ->paginate()
 //            ->appends($request->query());
-        $posts = Post::with(['user', 'likes', 'shares', 'comments'])
+        $posts = Post::with('user')
+            ->withCount(['likes', 'comments', 'shares'])
             ->whereIn('user_id', function ($query) use ($loggedInUserId) {
                 $query->select('followed_id')
                     ->from('follows')

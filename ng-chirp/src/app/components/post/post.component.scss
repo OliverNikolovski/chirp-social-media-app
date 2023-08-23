@@ -1,5 +1,14 @@
 .post {
   display: flex;
+  padding: 1rem 3rem 1rem 1rem;
+  font-size: 1.1rem;
+  border: 1px solid #f1f4f5;
+  border-collapse: collapse;
+
+  &:hover {
+    background-color: darken(white, 5%);
+    cursor: pointer;
+  }
 }
 
 .post-details {
@@ -9,26 +18,67 @@
 
 .header {
   display: flex;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .name {
   color: black;
-}
 
-.username {
-  text-decoration: none;
+  &:hover {
+    text-decoration: underline black !important;
+  }
 }
 
 .user-profile-picture {
-  width: 50px;
+  width: 3rem;
 }
 
 .actions {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+
+  div:not(:last-child) {
+    margin-right: 2rem;
+  }
 }
 
-.avg-action-icon {
+.svg-action-icon {
   width: 1rem;
   height: 1rem;
 }
+
+.header-item {
+  margin-right: 0.5rem;
+}
+
+.dot-separator {
+  line-height: 0.7rem;
+}
+
+.username, .dot-separator, .date-posted {
+  color: #677682;
+}
+
+.user-profile-picture-container {
+  margin-right: 1rem;
+}
+
+.post-details-item:not(:last-child) {
+  margin-bottom: 0.6rem;
+}
+
+.image {
+  img {
+    max-width: 100%;
+  }
+}
+
+.actions-item {
+  svg {
+    margin-right: 0.7rem;
+  }
+}
+

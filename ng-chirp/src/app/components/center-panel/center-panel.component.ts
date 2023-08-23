@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-center-panel',
@@ -6,5 +7,5 @@ import {Component} from "@angular/core";
   styleUrls: ['center-panel.component.scss']
 })
 export class CenterPanelComponent {
-
+  @Input() authenticatedUser!: User;
 }

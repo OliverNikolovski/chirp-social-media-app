@@ -8,14 +8,14 @@ import {User} from "../../models/user";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  authenticatedUser?: User
+  authenticatedUser!: User
 
   constructor(private authService: AuthenticationService) {
+    this.authService.getAuthenticatedUser()
+      .subscribe(user => this.authenticatedUser = user);
   }
 
   ngOnInit(): void {
-    this.authService.getAuthenticatedUser()
-      .subscribe(user => this.authenticatedUser = user);
   }
 
 }
