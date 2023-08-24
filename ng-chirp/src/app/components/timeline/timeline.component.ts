@@ -9,17 +9,34 @@ import {Post} from "../../models/post";
   styleUrls: ['timeline.component.scss']
 })
 export class TimelineComponent implements OnInit {
+  private currentPage = 1;
+
   posts: Post[] = [];
+  newlyCreatedPosts: Post[] = [];
 
   constructor(private postService: PostService) {
   }
 
   ngOnInit(): void {
-    this.postService.getPosts()
+    this.loadPosts();
+
+    this.postService.postCreated$
+      .subscribe(post => this.newlyCreatedPosts.unshift(post));
+  }
+
+  loadPosts() {
+    this.postService.getPosts(this.currentPage)
       .subscribe(postsResponse => {
         console.log('timeline:',postsResponse.data);
-        this.posts = postsResponse.data as Post[];
+        this.posts = [...this.posts, ...postsResponse.data];
+        this.currentPage++;
       });
+  }
+
+  onScrollIndexChange(index: number) {
+    if (index === this.posts.length - 1) {
+      this.loadPosts();
+    }
   }
 
 }

@@ -3,7 +3,7 @@ export interface Post {
   user: UserInfo;
   created_at: Date;
   text_content: string;
-  image: string;
+  image: string | null;
   type: string;
   likes_count: number;
   shares_count: number;
@@ -14,6 +14,6 @@ export interface Post {
 interface UserInfo {
   id: number;
   name: string;
-  profile_picture: string;
+  profile_picture: string | null;
   username: string;
 }

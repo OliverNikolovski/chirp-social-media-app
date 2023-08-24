@@ -8,12 +8,14 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostCollection;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -22,19 +24,10 @@ class PostController extends Controller
     {
         $loggedInUserId = auth()->id();
 
-        // Get all posts from followed users
-//        $posts = Post::withCount(['likes', 'shares', 'comments'])
-//            ->whereIn('user_id', function ($query) use ($loggedInUserId) {
-//                $query->select('followed_id')
-//                    ->from('follows')
-//                    ->where('follower_id', $loggedInUserId);
-//            })
-//            ->orderBy('created_at', 'desc')  // Order by date from newest to oldest
-//            ->paginate()
-//            ->appends($request->query());
         $posts = Post::with('user')
             ->withCount(['likes', 'comments', 'shares'])
-            ->whereIn('user_id', function ($query) use ($loggedInUserId) {
+            ->where('user_id', '=', $loggedInUserId)
+            ->orWhereIn('user_id', function ($query) use ($loggedInUserId) {
                 $query->select('followed_id')
                     ->from('follows')
                     ->where('follower_id', $loggedInUserId);
@@ -61,7 +54,15 @@ class PostController extends Controller
 
         $attributes['user_id'] = auth()->id();
         $attributes['image'] = $path;
-        return new PostResource(Post::create($attributes));
+
+        $post = Post::create($attributes);
+
+        $post->likes_count = 0;
+        $post->comments_count = 0;
+        $post->shares_count = 0;
+        $post->load('user');
+
+        return new PostResource($post);
     }
 
     /**

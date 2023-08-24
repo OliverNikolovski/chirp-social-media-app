@@ -2,11 +2,15 @@
   <div class="user-profile-picture-container">
     <img [src]="authenticatedUser.data.profile_picture" alt="user profile picture" class="user-profile-picture"/>
   </div>
-  <form>
+  <form (ngSubmit)="onSubmit()">
     <mat-form-field>
-      <textarea matInput class="input-post" placeholder="What is happening?!" #postInput
+      <textarea matInput class="input-post" placeholder="What is happening?!" name="postTextContent" #postInput
+                [(ngModel)]="postTextContent"
                 (input)="onPostInputChange()"></textarea>
     </mat-form-field>
+    <div *ngIf="postImageDataURL">
+      <img [src]="postImageDataURL" alt="selected image" class="selected-image"/>
+    </div>
     <div class="actions">
       <div>
         <label for="postImage">
@@ -16,9 +20,11 @@
             </path>
           </svg>
         </label>
-        <input type="file" id="postImage" class="hidden">
+        <input type="file" id="postImage" class="hidden" accept="image/jpeg,image/png"
+               (change)="onFileSelected($event)"/>
       </div>
-      <button mat-flat-button color="primary" type="button">Post</button>
+      <button mat-flat-button color="primary" type="submit">Post</button>
     </div>
+    <p *ngIf="errors" class="errors">Post must contain text content or image</p>
   </form>
 </div>
