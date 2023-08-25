@@ -25,6 +25,9 @@ import {PostComponent} from "./components/post/post.component";
 import {RelativeTimePipe} from "./pipes/relative-time.pipe";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatDialogModule} from "@angular/material/dialog";
+import {AddCommentDialog} from "./dialogs/add-comment/add-comment.dialog";
+import {ProfilePicOrDefaultPipe} from "./pipes/profile-pic-or-default.pipe";
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     TimelineComponent,
     AddPostComponent,
     PostComponent,
-    RelativeTimePipe
+    RelativeTimePipe,
+    AddCommentDialog,
+    ProfilePicOrDefaultPipe
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatIconModule,
     FormsModule,
     ScrollingModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

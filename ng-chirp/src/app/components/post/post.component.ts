@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Post} from "../../models/post";
+import {MatDialog} from "@angular/material/dialog";
+import {AddCommentDialog} from "../../dialogs/add-comment/add-comment.dialog";
 
 
 @Component({
@@ -14,8 +16,7 @@ export class PostComponent {
   @Output() like = new EventEmitter<Post>();
   @Output() unlike = new EventEmitter<Post>();
 
-  get userProfilePicture(): string {
-    return this.post.user.profile_picture ?? 'http://localhost:8000/profile-pictures/default.png';
+  constructor(private matDialog: MatDialog) {
   }
 
   onLikeOrUnlike() {
@@ -27,4 +28,14 @@ export class PostComponent {
     }
   }
 
+  openCommentDialog() {
+    const matDialogRef = this.matDialog.open(AddCommentDialog, {
+      data: { post: this.post },
+      panelClass: 'scrollable-dialog',
+      maxHeight: '70vh',
+      width: '50vw'
+    });
+
+    matDialogRef.afterClosed().subscribe(() => console.log('closed'));
+  }
 }

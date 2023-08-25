@@ -12,7 +12,7 @@ export interface Post {
   like_id: number | null;
 }
 
-interface UserInfo {
+export interface UserInfo {
   id: number;
   name: string;
   profile_picture: string | null;
