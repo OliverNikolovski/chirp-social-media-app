@@ -41,6 +41,7 @@ class StoreLikeRequest extends FormRequest
                     }
                 },
             ],
+            'type' => ['required']
         ];
     }
 

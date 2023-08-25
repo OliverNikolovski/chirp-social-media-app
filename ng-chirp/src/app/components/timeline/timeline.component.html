@@ -1,8 +1,11 @@
 <div class="timeline">
   <ng-container *ngFor="let post of newlyCreatedPosts">
-    <app-post [post]="post"></app-post>
+    <app-post [post]="post" (like)="onLike($event)" (unlike)="onUnlike($event)"></app-post>
   </ng-container>
   <ng-container *ngFor="let post of posts">
-    <app-post [post]="post"></app-post>
+    <app-post [post]="post" (like)="onLike($event)" (unlike)="onUnlike($event)"></app-post>
   </ng-container>
+  <div *ngIf="arePostsLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>

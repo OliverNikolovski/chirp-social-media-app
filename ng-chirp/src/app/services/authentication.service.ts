@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable, tap} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user";
-import {AccessTokenResponse} from "../models/access-token-response";
+import {AccessTokenResponse} from "../responses/access-token-response";
 import {UserRegisterRequest} from "../requests/user-register.request";
 
 @Injectable({

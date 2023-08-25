@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, HostListener, Input} from "@angular/core";
 import {User} from "../../models/user";
 import {Post} from "../../models/post";
 
@@ -10,9 +10,4 @@ import {Post} from "../../models/post";
 export class CenterPanelComponent {
   @Input() authenticatedUser!: User;
 
-  createdPost?: Post;
-
-  onPostCreated(post: Post) {
-    this.createdPost = post;
-  }
 }

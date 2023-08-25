@@ -31,7 +31,8 @@ class PostResource extends JsonResource
             'comments_count' => $this->comments_count,
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'sharedPost' => new PostResource($this->whenLoaded('sharedPost')),
-            'sharedComment' => new CommentResource($this->whenLoaded('sharedComment'))
+            'sharedComment' => new CommentResource($this->whenLoaded('sharedComment')),
+            'like_id' => $this->likes->isNotEmpty() ? $this->likes->first()->id : null
         ];
     }
 }

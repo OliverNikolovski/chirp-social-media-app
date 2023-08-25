@@ -24,6 +24,7 @@ import {AddPostComponent} from "./components/add-post/add-post.component";
 import {PostComponent} from "./components/post/post.component";
 import {RelativeTimePipe} from "./pipes/relative-time.pipe";
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     MatNativeDateModule,
     MatIconModule,
     FormsModule,
-    ScrollingModule
+    ScrollingModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

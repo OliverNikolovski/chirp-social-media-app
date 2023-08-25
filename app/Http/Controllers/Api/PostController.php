@@ -8,14 +8,12 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostCollection;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -24,7 +22,9 @@ class PostController extends Controller
     {
         $loggedInUserId = auth()->id();
 
-        $posts = Post::with('user')
+        $posts = Post::with(['user', 'likes' => function ($query) use ($loggedInUserId) {
+            $query->where('user_id', $loggedInUserId);
+        }])
             ->withCount(['likes', 'comments', 'shares'])
             ->where('user_id', '=', $loggedInUserId)
             ->orWhereIn('user_id', function ($query) use ($loggedInUserId) {
