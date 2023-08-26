@@ -18,12 +18,19 @@ body {
 
 .mat-mdc-snack-bar-container {
   &.snack-bar-error {
-    --mdc-snackbar-container-color: red
+    --mdc-snackbar-container-color: red;
+  }
+  &.snack-bar-success {
+    --mdc-snackbar-container-color: green;
   }
 }
 
 snack-bar-error {
   background-color: red;
+}
+
+snack-bar-success {
+  background-color: green;
 }
 
 .panel {

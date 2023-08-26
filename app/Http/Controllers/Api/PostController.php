@@ -22,7 +22,7 @@ class PostController extends Controller
     {
         $loggedInUserId = auth()->id();
 
-        $posts = Post::with(['user', 'likes' => function ($query) use ($loggedInUserId) {
+        $posts = Post::with(['user', 'sharedPost', 'sharedComment', 'likes' => function ($query) use ($loggedInUserId) {
             $query->where('user_id', $loggedInUserId);
         }])
             ->withCount(['likes', 'comments', 'shares'])
@@ -61,6 +61,8 @@ class PostController extends Controller
         $post->comments_count = 0;
         $post->shares_count = 0;
         $post->load('user');
+        $post->load('sharedPost');
+        $post->load('sharedComment');
 
         return new PostResource($post);
     }

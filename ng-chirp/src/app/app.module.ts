@@ -28,6 +28,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDialogModule} from "@angular/material/dialog";
 import {AddCommentDialog} from "./dialogs/add-comment/add-comment.dialog";
 import {ProfilePicOrDefaultPipe} from "./pipes/profile-pic-or-default.pipe";
+import {SharePostDialog} from "./dialogs/share-post/share-post.dialog";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {ProfilePicOrDefaultPipe} from "./pipes/profile-pic-or-default.pipe";
     PostComponent,
     RelativeTimePipe,
     AddCommentDialog,
-    ProfilePicOrDefaultPipe
+    ProfilePicOrDefaultPipe,
+    SharePostDialog
   ],
   imports: [
     BrowserModule,

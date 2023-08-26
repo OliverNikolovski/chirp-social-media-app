@@ -1,6 +1,7 @@
 .container {
+  position: relative;
   display: flex;
-  padding: 1rem 3rem 1rem 1rem;
+  padding: 2rem 3rem 1rem 1rem;
   font-size: 1.1rem;
 }
 
@@ -54,4 +55,20 @@ form {
 
 .selected-image {
   width: 30%;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: white;
+  padding: 0.5rem;
+
+  &:hover {
+    background-color: darken(white, 10%);
+    cursor: pointer;
+  }
 }

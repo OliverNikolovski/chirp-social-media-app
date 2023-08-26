@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Observable, tap} from "rxjs";
+import {BehaviorSubject, Observable, ReplaySubject, tap} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user";
 import {AccessTokenResponse} from "../responses/access-token-response";
@@ -16,6 +16,8 @@ export class AuthenticationService {
     }),
   };
   private baseUrl = 'http://localhost:8000/api';
+
+  public authentication$ = new ReplaySubject<User>(1);
 
   constructor(private http: HttpClient) {
   }
@@ -62,7 +64,7 @@ export class AuthenticationService {
       );
   }
 
-  getAuthenticatedUser(): Observable<User> {
+  fetchAuthenticatedUser(): Observable<User> {
     const accessToken = localStorage.getItem("accessToken");
     const headers = {
       Authorization: `Bearer ${accessToken}`

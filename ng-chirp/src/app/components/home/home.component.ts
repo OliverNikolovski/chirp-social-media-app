@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, HostListener, Inject, OnInit, ViewChild} from "@angular/core";
 import {AuthenticationService} from "../../services/authentication.service";
 import {User} from "../../models/user";
 import {ScrollService} from "../../services/scroll.service";
@@ -8,7 +8,7 @@ import {ScrollService} from "../../services/scroll.service";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   authenticatedUser!: User;
 
   @ViewChild('homePageWrapper')
@@ -16,14 +16,18 @@ export class HomeComponent implements OnInit {
 
   constructor(private authService: AuthenticationService,
               private scrollService: ScrollService) {
-    this.authService.getAuthenticatedUser()
-      .subscribe(user => this.authenticatedUser = user);
-  }
+    this.authService.fetchAuthenticatedUser()
+      .subscribe(user => {
+        this.authenticatedUser = user;
+        this.authService.authentication$.next(user);
+      });
 
-  ngOnInit(): void {
+    this.scrollService.scrollToTop.subscribe(() => {
+      this.homePageWrapperRef.nativeElement.scrollTop = 0;
+    });
   }
 
   onScroll() {
-    this.scrollService.scrollTop.next(this.homePageWrapperRef.nativeElement.scrollTop);
+    this.scrollService.verticalScrollPosition.next(this.homePageWrapperRef.nativeElement.scrollTop);
   }
 }

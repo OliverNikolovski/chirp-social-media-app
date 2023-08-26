@@ -3,6 +3,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {CommentService} from "../../services/comment.service";
 import {FormGroup} from "@angular/forms";
 import {Post, UserInfo} from "../../models/post";
+import {SaveCommentRequest} from "../../requests/save-comment.request";
+import {NotificationService} from "../../services/notification.service";
+
+interface CommentForm {
+  commentTextContent: string;
+  commentImage: string;
+}
 
 @Component({
   selector: 'add-comment',
@@ -20,7 +27,8 @@ export class AddCommentDialog implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddCommentDialog>,
               @Inject(MAT_DIALOG_DATA) public data: { post: Post, parent_comment_id?: number },
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private notificationService: NotificationService) {
     this.authenticatedUser = this.data.post.user;
   }
 
@@ -29,11 +37,28 @@ export class AddCommentDialog implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
-    console.log('form',form);
+    if (!this.isFormValid(form.value)) {
+      this.errors = true;
+      return;
+    }
+    this.errors = false;
+
+    const request = this.getSaveCommentRequestObject(form.value.commentTextContent);
+    this.commentService.save(request)
+      .subscribe({
+        next: response => {
+          this.notificationService.success('Your comment was sent', 'center', 'bottom');
+          this.closeDialog(true);
+        },
+        error: error => {
+          this.notificationService.error(error.message, 'center', 'bottom');
+          this.closeDialog(false);
+        }
+      });
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closeDialog(value: boolean) {
+    this.dialogRef.close(value);
   }
 
   onCommentInputChange() {
@@ -57,5 +82,20 @@ export class AddCommentDialog implements OnInit {
       this.commentImageDataURL = event.target!.result;
     }
     reader.readAsDataURL(file);
+  }
+
+  isFormValid(value: CommentForm): boolean {
+    return Boolean(value.commentTextContent) || Boolean(value.commentImage);
+  }
+
+  getSaveCommentRequestObject(textContent: string): SaveCommentRequest {
+    const request = {} as SaveCommentRequest;
+    request.post_id = this.data.post.id;
+    if (textContent)
+      request.text_content = textContent;
+    if (this.commentImage)
+      request.image = this.commentImage;
+
+    return request;
   }
 }

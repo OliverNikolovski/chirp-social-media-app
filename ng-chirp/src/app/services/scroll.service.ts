@@ -6,6 +6,8 @@ import {Subject} from "rxjs";
 })
 export class ScrollService {
 
-  scrollTop = new Subject<number>();
+  verticalScrollPosition = new Subject<number>();
+
+  scrollToTop = new Subject<boolean>();
 
 }

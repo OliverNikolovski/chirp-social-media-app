@@ -10,6 +10,8 @@ export interface Post {
   comments_count: number;
   comments: Comment[]; // this should be removed (from backend also)
   like_id: number | null;
+  shared_post: Post | null;
+  shared_comment: Comment | null;
 }
 
 export interface UserInfo {

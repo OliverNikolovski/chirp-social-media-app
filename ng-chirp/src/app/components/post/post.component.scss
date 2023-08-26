@@ -2,11 +2,11 @@
   display: flex;
   padding: 1rem 3rem 1rem 1rem;
   font-size: 1.1rem;
-  border: 1px solid #f1f4f5;
+  border: 1.5px solid #f1f4f5;
   border-collapse: collapse;
 
   &:hover {
-    background-color: darken(white, 5%);
+    background-color: darken(white, 2%);
     cursor: pointer;
   }
 }
@@ -123,5 +123,14 @@
 
 .scrollable-dialog {
   overflow-y: auto;
+}
+
+.shared-post {
+  margin-bottom: 1rem;
+  border: 2px solid #edf1f3;
+
+  &:hover {
+    border-color: black;
+  }
 }
 

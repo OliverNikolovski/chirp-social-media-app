@@ -1,15 +1,18 @@
-import {Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from "@angular/core";
 import {User} from "../../models/user";
 import {PostService} from "../../services/post.service";
+import {Post} from "../../models/post";
+import {CreatePostRequest} from "../../requests/create-post.request";
 
 @Component({
   selector: 'app-add-post',
   templateUrl: 'add-post.component.html',
   styleUrls: ['add-post.component.scss']
 })
-export class AddPostComponent implements OnChanges {
+export class AddPostComponent {
 
   @Input() authenticatedUser!: User;
+  @Input() share?: Post;
 
   @ViewChild('postInput') postInput!: ElementRef;
 
@@ -20,12 +23,6 @@ export class AddPostComponent implements OnChanges {
 
 
   constructor(private postService: PostService) {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['authenticatedUser']) {
-      console.log('authenticated user:', this.authenticatedUser);
-    }
   }
 
   onPostInputChange() {
@@ -41,10 +38,11 @@ export class AddPostComponent implements OnChanges {
     }
     this.errors = false;
 
-    this.postService.createPost(this.postTextContent, this.postImage)
+    const request = this.getCreatePostRequestObject();
+
+    this.postService.createPost(request)
       .subscribe({
         next: post => {
-          console.log('created post:', post.data);
           this.postService.postCreated$.next(post.data);
           this.postTextContent = '';
           this.postImageDataURL = null;
@@ -68,6 +66,15 @@ export class AddPostComponent implements OnChanges {
       this.postImageDataURL = event.target!.result;
     }
     reader.readAsDataURL(file);
+  }
+
+  getCreatePostRequestObject(): CreatePostRequest {
+    return {
+      text_content: this.postTextContent,
+      image: this.postImage,
+      post_id: this.share?.id,
+      type: 'p'
+    }
   }
 
 }

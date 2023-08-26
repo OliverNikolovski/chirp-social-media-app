@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthenticationService} from "./authentication.service";
 import {PostsPaginationResponse} from "../responses/posts-pagination-response";
 import {PostResponse} from "../responses/post.response";
+import {CreatePostRequest} from "../requests/create-post.request";
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +35,25 @@ export class PostService {
     return this.http.get<PostsPaginationResponse>(`${this.baseUrl}?page=${page}`, {headers: this.httpHeaders});
   }
 
-  createPost(textContent: string | null, image: File | null): Observable<PostResponse> {
+  // createPost(textContent: string | null, image: File | null): Observable<PostResponse> {
+  //   const formData = new FormData();
+  //   formData.set('type', 'p');
+  //   textContent && formData.set('text_content', textContent);
+  //   image && formData.set('image', image, image.name);
+  //   const headers = {'Authorization': `Bearer ${this.accessToken}`};
+  //   return this.http.post<PostResponse>(`${this.baseUrl}`, formData, {headers});
+  // }
+
+  createPost(request: CreatePostRequest): Observable<PostResponse> {
     const formData = new FormData();
-    formData.set('type', 'p');
-    textContent && formData.set('text_content', textContent);
-    image && formData.set('image', image, image.name);
+    formData.set('type', request.type);
+    request.text_content && formData.set('text_content', request.text_content);
+    request.image && formData.set('image', request.image);
+    request.post_id && formData.set('post_id', request.post_id.toString());
+    request.comment_id && formData.set('comment_id', request.comment_id!.toString());
+
     const headers = {'Authorization': `Bearer ${this.accessToken}`};
+
     return this.http.post<PostResponse>(`${this.baseUrl}`, formData, {headers});
   }
 

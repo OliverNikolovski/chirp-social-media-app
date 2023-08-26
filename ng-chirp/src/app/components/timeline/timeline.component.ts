@@ -27,9 +27,12 @@ export class TimelineComponent implements OnInit {
     this.loadPosts();
 
     this.postService.postCreated$
-      .subscribe(post => this.newlyCreatedPosts.unshift(post));
+      .subscribe(post => {
+        console.log('adding post to newly created:', post);
+        this.newlyCreatedPosts.unshift(post);
+      });
 
-    this.scrollService.scrollTop.subscribe(position => this.onScroll(position));
+    this.scrollService.verticalScrollPosition.subscribe(position => this.onScroll(position));
   }
 
   loadPosts() {
@@ -42,7 +45,6 @@ export class TimelineComponent implements OnInit {
     this.postService.getPosts(this.currentPage)
       .subscribe({
         next: postsResponse => {
-          console.log('timeline:',postsResponse);
           this.posts = [...this.posts, ...postsResponse.data];
           this.hasNextPage = postsResponse.meta.last_page > this.currentPage;
           this.currentPage++;
@@ -59,7 +61,6 @@ export class TimelineComponent implements OnInit {
     const approximateTimelineHeight = (this.posts.length + this.newlyCreatedPosts.length) * 150;
 
     if (scrollPosition >= approximateTimelineHeight - 200) {
-      console.log(this.posts.length, this.newlyCreatedPosts.length)
       this.loadPosts();
     }
   }
@@ -81,7 +82,6 @@ export class TimelineComponent implements OnInit {
 
     this.likeService.deleteLike(post.like_id)
       .subscribe(response => {
-        console.log(response.message);
         post.like_id = null;
         post.likes_count--;
       });
