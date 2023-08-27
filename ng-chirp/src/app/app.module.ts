@@ -29,6 +29,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {AddCommentDialog} from "./dialogs/add-comment/add-comment.dialog";
 import {ProfilePicOrDefaultPipe} from "./pipes/profile-pic-or-default.pipe";
 import {SharePostDialog} from "./dialogs/share-post/share-post.dialog";
+import {PostViewComponent} from "./components/post-view/post-view.component";
+import {PostViewCardComponent} from "./components/post-view-card/post-view-card.component";
+import {FormatDatePipe} from "./pipes/format-date.pipe";
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import {SharePostDialog} from "./dialogs/share-post/share-post.dialog";
     RelativeTimePipe,
     AddCommentDialog,
     ProfilePicOrDefaultPipe,
-    SharePostDialog
+    SharePostDialog,
+    PostViewComponent,
+    PostViewCardComponent,
+    FormatDatePipe
   ],
   imports: [
     BrowserModule,

@@ -2,11 +2,22 @@
   display: flex;
   flex-direction: column;
 
-  h1 {
-    font-weight: 550;
-  }
-
   .heading {
+    position: sticky;
+    top: 0;
     padding-left: 1rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    backface-visibility: hidden;
+    height: 5rem;
+    color: black;
+    z-index: 1;
+
+    h1 {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      font-weight: 550;
+    }
   }
 }

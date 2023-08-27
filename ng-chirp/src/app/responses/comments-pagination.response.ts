@@ -1,8 +1,7 @@
-import {Post} from "../models/post";
 import {NavigationLinks, PaginationMetaData} from "./pagination-data";
 
-export interface PostsPaginationResponse {
-  data: Post[];
+export interface CommentsPaginationResponse {
+  data: Comment[];
   links: NavigationLinks;
   meta: PaginationMetaData;
 }

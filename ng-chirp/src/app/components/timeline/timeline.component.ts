@@ -3,6 +3,7 @@ import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post";
 import {ScrollService} from "../../services/scroll.service";
 import {LikeService} from "../../services/like.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -20,7 +21,9 @@ export class TimelineComponent implements OnInit {
 
   constructor(private postService: PostService,
               private scrollService: ScrollService,
-              private likeService: LikeService) {
+              private likeService: LikeService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -85,5 +88,9 @@ export class TimelineComponent implements OnInit {
         post.like_id = null;
         post.likes_count--;
       });
+  }
+
+  onPostClick(id: number) {
+    this.router.navigate(['../post', id], {relativeTo: this.route});
   }
 }

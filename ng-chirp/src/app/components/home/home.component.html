@@ -1,5 +1,7 @@
-<div class="home-page-wrapper"(scroll)="onScroll()" #homePageWrapper>
+<div class="home-page-wrapper" (scroll)="onScroll()" #homePageWrapper>
   <app-left-panel></app-left-panel>
-  <app-center-panel [authenticatedUser]="authenticatedUser"></app-center-panel>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
   <app-right-panel></app-right-panel>
 </div>

@@ -3,6 +3,7 @@ import {User} from "../../models/user";
 import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post";
 import {CreatePostRequest} from "../../requests/create-post.request";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-add-post',
@@ -11,7 +12,7 @@ import {CreatePostRequest} from "../../requests/create-post.request";
 })
 export class AddPostComponent {
 
-  @Input() authenticatedUser!: User;
+  authenticatedUser!: User;
   @Input() share?: Post;
 
   @ViewChild('postInput') postInput!: ElementRef;
@@ -22,7 +23,9 @@ export class AddPostComponent {
   errors = false;
 
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService,
+              private authService: AuthenticationService) {
+    this.authService.authentication$.subscribe(auth => this.authenticatedUser = auth);
   }
 
   onPostInputChange() {

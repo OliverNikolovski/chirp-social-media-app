@@ -29,7 +29,7 @@ class PostResource extends JsonResource
             'likes_count' => $this->likes_count,
             'shares_count' => $this->shares_count,
             'comments_count' => $this->comments_count,
-            'comments' => CommentResource::collection($this->whenLoaded('comments')),
+//            'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'shared_post' => new PostResource($this->whenLoaded('sharedPost')),
             'shared_comment' => new CommentResource($this->whenLoaded('sharedComment')),
             'like_id' => $this->likes->isNotEmpty() ? $this->likes->first()->id : null

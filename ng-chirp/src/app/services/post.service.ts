@@ -35,14 +35,9 @@ export class PostService {
     return this.http.get<PostsPaginationResponse>(`${this.baseUrl}?page=${page}`, {headers: this.httpHeaders});
   }
 
-  // createPost(textContent: string | null, image: File | null): Observable<PostResponse> {
-  //   const formData = new FormData();
-  //   formData.set('type', 'p');
-  //   textContent && formData.set('text_content', textContent);
-  //   image && formData.set('image', image, image.name);
-  //   const headers = {'Authorization': `Bearer ${this.accessToken}`};
-  //   return this.http.post<PostResponse>(`${this.baseUrl}`, formData, {headers});
-  // }
+  getPostById(id: number): Observable<PostResponse> {
+    return this.http.get<PostResponse>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders});
+  }
 
   createPost(request: CreatePostRequest): Observable<PostResponse> {
     const formData = new FormData();

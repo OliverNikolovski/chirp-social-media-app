@@ -8,7 +8,6 @@ export interface Post {
   likes_count: number;
   shares_count: number;
   comments_count: number;
-  comments: Comment[]; // this should be removed (from backend also)
   like_id: number | null;
   shared_post: Post | null;
   shared_comment: Comment | null;

@@ -8,6 +8,5 @@ import {Post} from "../../models/post";
   styleUrls: ['center-panel.component.scss']
 })
 export class CenterPanelComponent {
-  @Input() authenticatedUser!: User;
 
 }

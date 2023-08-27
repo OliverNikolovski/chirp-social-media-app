@@ -1,0 +1,108 @@
+@import "src/variables";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.card-item {
+  margin-bottom: 1.5rem;
+
+  &:first-child {
+    margin-bottom: 2.5rem;
+  }
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-info {
+  display: flex;
+}
+
+.user-name-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+
+  .username {
+    margin-top: 0.5rem;
+    color: $gray-text-color
+  }
+
+  .name {
+    font-weight: 500;
+  }
+}
+
+.statistics {
+  display: flex;
+  margin-top: 1.5rem;
+  color: $gray-text-color;
+  padding: 1.5rem 0;
+  border-top: $gray-border;
+  border-bottom: $gray-border;
+
+  div {
+    margin-right: 2rem;
+
+    span {
+      color: black;
+      font-weight: 500;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+  border-bottom: $gray-border;
+
+  .action {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  path {
+    fill: darken($gray-text-color, 10%);
+  }
+}
+
+.profile-picture {
+  width: 4rem;
+
+  img {
+    width: 100%;
+  }
+}
+
+.image-container img {
+  max-width: 80%;
+}
+
+.date {
+  margin-top: 1.5rem;
+  color: $gray-text-color;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.shared-post {
+  margin-top: 2rem;
+  width: 90%;
+  border-radius: 50px;
+  align-self: center;
+}
+
+.image-container {
+  margin-top: 2rem;
+}

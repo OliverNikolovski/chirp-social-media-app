@@ -72,13 +72,15 @@ class PostController extends Controller
      */
     public function show(Post $post): PostResource
     {
-        //$loadMissing = ['likes', 'shares', 'sharedPost', 'sharedComment'];
-        $loadMissing = ['sharedPost', 'sharedComment'];
+        $loadMissing = ['sharedPost', 'sharedComment', 'user'];
 
         if (request()->query('loadComments'))
             $loadMissing[] = 'comments';
 
-        return new PostResource($post->loadMissing($loadMissing));
+        $post->loadMissing($loadMissing);
+        $post->loadCount(['likes', 'comments', 'shares']);
+
+        return new PostResource($post);
     }
 
     /**

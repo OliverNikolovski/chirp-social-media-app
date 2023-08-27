@@ -1,0 +1,29 @@
+.back {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: sticky;
+  top: 0;
+  height: 4rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur();
+
+  span {
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .back-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: white;
+    padding: 0.5rem;
+
+    &:hover {
+      background-color: darken(white, 10%);
+      cursor: pointer;
+    }
+  }
+}
