@@ -1,0 +1,136 @@
+.comment {
+  display: flex;
+  padding: 1rem 3rem 1rem 1rem;
+  font-size: 1.1rem;
+  border: 1.5px solid #f1f4f5;
+  border-collapse: collapse;
+
+  &:hover {
+    background-color: darken(white, 2%);
+    cursor: pointer;
+  }
+}
+
+.comment-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.name {
+  color: black;
+
+  &:hover {
+    text-decoration: underline black !important;
+  }
+}
+
+.user-profile-picture {
+  width: 3rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+
+  div:not(:last-child) {
+    margin-right: 2rem;
+  }
+}
+
+.svg-action-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+
+  path {
+    stroke: #677682;
+    stroke-width: 1;
+  }
+}
+
+.header-item {
+  margin-right: 0.5rem;
+}
+
+.dot-separator {
+  line-height: 0.7rem;
+}
+
+.username, .dot-separator, .date-posted {
+  color: #677682;
+}
+
+.user-profile-picture-container {
+  margin-right: 1rem;
+}
+
+.comment-details-item:not(:last-child) {
+  margin-bottom: 0.6rem;
+}
+
+.image {
+  img {
+    max-width: 100%;
+  }
+}
+
+.actions-item {
+  svg {
+    margin-right: 0.7rem;
+    background: transparent;
+  }
+}
+
+.likes:hover {
+  svg {
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.6);
+  }
+  path {
+    stroke: red;
+  }
+  span {
+    color: red;
+  }
+}
+
+.comments:hover, .shares:hover {
+  svg {
+    box-shadow: 0 0 10px 5px rgba(0, 255, 0, 0.6);
+  }
+  path {
+    stroke: green;
+  }
+  span {
+    color: green;
+  }
+}
+
+.liked-comment {
+  path {
+    fill: red;
+  }
+  span {
+    color: red;
+  }
+}
+
+.scrollable-dialog {
+  overflow-y: auto;
+}
+
+.shared-comment {
+  margin-bottom: 1rem;
+  border: 2px solid #edf1f3;
+
+  &:hover {
+    border-color: black;
+  }
+}
+

@@ -35,6 +35,11 @@ export class LikeService {
     return this.http.post<LikeResponse>(`${this.baseUrl}`, body, {headers: this.httpHeaders});
   }
 
+  likeComment(commentId: number): Observable<LikeResponse> {
+    const body: LikeRequest = { comment_id: commentId, type: 'c' }
+    return this.http.post<LikeResponse>(`${this.baseUrl}`, body, {headers: this.httpHeaders});
+  }
+
   deleteLike(likeId: number): Observable<{message: string}> {
     return this.http.delete<{message: string}>(`${this.baseUrl}/${likeId}`, {headers: this.httpHeaders});
   }

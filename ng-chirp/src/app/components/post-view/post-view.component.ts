@@ -5,6 +5,7 @@ import {Post} from "../../models/post";
 import {NotificationService} from "../../services/notification.service";
 import {Location} from "@angular/common";
 import {CommentService} from "../../services/comment.service";
+import {AppComment} from "../../models/app-comment";
 
 @Component({
   selector: 'app-post-view',
@@ -14,7 +15,7 @@ import {CommentService} from "../../services/comment.service";
 export class PostViewComponent implements OnInit{
   postId!: number;
   post?: Post;
-  comments: Comment[] = [];
+  comments: AppComment[] = [];
   currentCommentPageNumber = 1;
 
   constructor(private route: ActivatedRoute,

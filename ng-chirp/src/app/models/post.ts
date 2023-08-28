@@ -1,3 +1,5 @@
+import {AppComment} from "./app-comment";
+
 export interface Post {
   id: number;
   user: UserInfo;
@@ -10,7 +12,7 @@ export interface Post {
   comments_count: number;
   like_id: number | null;
   shared_post: Post | null;
-  shared_comment: Comment | null;
+  shared_comment: AppComment | null;
 }
 
 export interface UserInfo {

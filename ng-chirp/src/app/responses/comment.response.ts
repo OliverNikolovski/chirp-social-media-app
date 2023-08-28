@@ -1,5 +1,5 @@
-import {Comment} from "../models/comment";
+import {AppComment} from "../models/app-comment";
 
 export interface CommentResponse {
-  data: Comment
+  data: AppComment
 }

@@ -32,6 +32,7 @@ import {SharePostDialog} from "./dialogs/share-post/share-post.dialog";
 import {PostViewComponent} from "./components/post-view/post-view.component";
 import {PostViewCardComponent} from "./components/post-view-card/post-view-card.component";
 import {FormatDatePipe} from "./pipes/format-date.pipe";
+import {CommentComponent} from "./components/comment/comment.component";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {FormatDatePipe} from "./pipes/format-date.pipe";
     SharePostDialog,
     PostViewComponent,
     PostViewCardComponent,
-    FormatDatePipe
+    FormatDatePipe,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

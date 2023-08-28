@@ -16,15 +16,22 @@ class CommentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+                'username' => $this->user->username,
+                'profile_picture' => $this->user->profile_picture ? asset($this->user->profile_picture) : null,
+            ],
             'post_id' => $this->post_id,
             'parent_comment_id' => $this->parent_comment_id,
             'created_at' => $this->created_at,
             'text_content' => $this->text_content,
             'image' => $this->image ? asset($this->image) : null,
             'child_comments' => CommentResource::collection($this->whenLoaded('childComments')),
-            'likes' => LikeResource::collection($this->whenLoaded('likes')),
-            'shares' => PostResource::collection($this->whenLoaded('shares'))
+            'likes_count' => $this->likes_count,
+            'shares_count' => $this->shares_count,
+            'comments_count' => $this->comments_count,
+            'like_id' => $this->likes->isNotEmpty() ? $this->likes->first()->id : null
         ];
     }
 }

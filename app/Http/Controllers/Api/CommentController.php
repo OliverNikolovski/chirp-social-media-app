@@ -19,6 +19,7 @@ class CommentController extends Controller
 {
     public function index(Request $request): JsonResponse|CommentCollection
     {
+        $loggedInUserId = auth()->id();
         $postId = $request->query('post_id');
 
         if (!$postId) {
@@ -26,6 +27,10 @@ class CommentController extends Controller
         }
 
         $comments = Comment::where('post_id', $postId)
+            ->with(['user', 'likes' => function ($query) use ($loggedInUserId) {
+                $query->where('user_id', $loggedInUserId);
+            }])
+            ->withCount(['likes', 'comments', 'shares'])
             ->orderBy('created_at', 'desc')  // Order by date from newest to oldest
             ->paginate(10)  // Paginate results, 10 per page
             ->appends($request->query());  // Append all request query parameters except 'page'

@@ -7,3 +7,6 @@
   <span>Back</span>
 </div>
 <app-post-view-card [post]="post" *ngIf="post"></app-post-view-card>
+<div class="comment-section">
+  <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+</div>

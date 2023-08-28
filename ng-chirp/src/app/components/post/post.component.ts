@@ -23,7 +23,8 @@ export class PostComponent {
               private scrollService: ScrollService) {
   }
 
-  onLikeOrUnlike() {
+  onLikeOrUnlike(event: Event) {
+    event.stopPropagation();
     if (this.post.like_id) {
       this.unlike.emit(this.post);
     }
@@ -32,7 +33,8 @@ export class PostComponent {
     }
   }
 
-  openCommentDialog() {
+  openCommentDialog(event: Event) {
+    event.stopPropagation();
     const matDialogRef = this.matDialog.open(AddCommentDialog, {
       data: { post: this.post },
       panelClass: 'scrollable-dialog',
@@ -47,7 +49,8 @@ export class PostComponent {
     });
   }
 
-  sharePost() {
+  sharePost(event: Event) {
+    event.stopPropagation();
     const dialogRef = this.matDialog.open(SharePostDialog, {
       data: { post: this.post } ,
       panelClass: 'scrollable-dialog',

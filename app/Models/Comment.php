@@ -32,8 +32,8 @@ class Comment extends Model
         return $this->belongsTo(Comment::class);
     }
 
-    public function childComments(): HasMany {
-        return $this->hasMany(Comment::class);
+    public function comments(): HasMany {
+        return $this->hasMany(Comment::class, 'parent_comment_id');
     }
 
     public function likes(): HasMany
