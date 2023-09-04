@@ -7,6 +7,11 @@
   <span>Back</span>
 </div>
 <app-post-view-card [post]="post" *ngIf="post"></app-post-view-card>
+<app-add-comment [postId]="postId" (commentAdded)="onCommentAdded($event)"></app-add-comment>
 <div class="comment-section">
   <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
 </div>
+<div class="load-btn-container" *ngIf="hasMoreComments">
+  <button mat-flat-button color="primary" type="button" (click)="loadComments()">Load more comments</button>
+</div>
+

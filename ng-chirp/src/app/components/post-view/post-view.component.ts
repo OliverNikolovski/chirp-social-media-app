@@ -17,6 +17,7 @@ export class PostViewComponent implements OnInit{
   post?: Post;
   comments: AppComment[] = [];
   currentCommentPageNumber = 1;
+  hasMoreComments = false;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,
@@ -47,11 +48,16 @@ export class PostViewComponent implements OnInit{
       });
   }
 
-  private loadComments() {
+  public loadComments() {
     this.commentService.getCommentsForPost(this.postId, this.currentCommentPageNumber)
       .subscribe(response => {
         this.comments = [...this.comments, ...response.data];
         this.currentCommentPageNumber++;
+        this.hasMoreComments = response.links.next !== null;
       });
+  }
+
+  onCommentAdded(comment: AppComment) {
+    this.comments.unshift(comment);
   }
 }

@@ -1,0 +1,74 @@
+.container {
+  position: relative;
+  display: flex;
+  padding: 2rem 3rem 1rem 1rem;
+  font-size: 1.1rem;
+}
+
+input-comment {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.user-profile-picture-container {
+  width: fit-content;
+  margin-right: 1rem;
+}
+
+.user-profile-picture {
+  width: 3rem;
+}
+
+form {
+  flex-grow: 1;
+}
+
+.comment-image-input-icon {
+  width: 2rem;
+  height: 2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.comment-image-input-icon path {
+  fill: #3f51b5;
+}
+
+.input-comment {
+  resize: none;
+  height: 50px;
+  overflow-y: hidden;
+}
+
+.errors {
+  color: red;
+}
+
+.selected-image {
+  width: 30%;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: white;
+  padding: 0.5rem;
+
+  &:hover {
+    background-color: darken(white, 10%);
+    cursor: pointer;
+  }
+}

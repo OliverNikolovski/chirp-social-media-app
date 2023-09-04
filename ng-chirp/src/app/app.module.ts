@@ -33,6 +33,7 @@ import {PostViewComponent} from "./components/post-view/post-view.component";
 import {PostViewCardComponent} from "./components/post-view-card/post-view-card.component";
 import {FormatDatePipe} from "./pipes/format-date.pipe";
 import {CommentComponent} from "./components/comment/comment.component";
+import {AddCommentComponent} from "./components/add-comment/add-comment.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {CommentComponent} from "./components/comment/comment.component";
     PostViewComponent,
     PostViewCardComponent,
     FormatDatePipe,
-    CommentComponent
+    CommentComponent,
+    AddCommentComponent
   ],
   imports: [
     BrowserModule,

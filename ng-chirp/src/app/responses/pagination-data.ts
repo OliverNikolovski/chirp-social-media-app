@@ -1,8 +1,8 @@
 export interface NavigationLinks {
   first: string;
   last: string;
-  next: string;
-  prev: string;
+  next: string | null;
+  prev: string | null;
 }
 
 export interface PaginationLink {
