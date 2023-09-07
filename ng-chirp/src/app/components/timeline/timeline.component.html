@@ -1,4 +1,5 @@
 <div class="timeline">
+  <ng-template *ngIf="true"><h1>Hello</h1></ng-template>
   <ng-container *ngFor="let post of newlyCreatedPosts">
     <app-post [post]="post" (like)="onLike($event)" (unlike)="onUnlike($event)" (click)="onPostClick(post.id)"></app-post>
   </ng-container>

@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/logout-from-all-devices', [AuthController::class, 'logoutFromAllDevices']);
     Route::get('/authentication', [AuthController::class, 'getAuthenticatedUser']);
+    Route::get('/comments/{id}/child-comments', [CommentController::class, 'childComments']);
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Api', 'middleware' => 'auth:sanctum'], function () {

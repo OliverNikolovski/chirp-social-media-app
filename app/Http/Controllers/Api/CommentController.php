@@ -27,6 +27,7 @@ class CommentController extends Controller
         }
 
         $comments = Comment::where('post_id', $postId)
+            ->where('parent_comment_id', null)
             ->with(['user', 'likes' => function ($query) use ($loggedInUserId) {
                 $query->where('user_id', $loggedInUserId);
             }])
@@ -110,5 +111,21 @@ class CommentController extends Controller
         else
             return response()->json(['message' => 'There was a problem deleting the comment'])->setStatusCode(500);
 
+    }
+
+    public function childComments(Request $request, int $id): JsonResponse|CommentCollection
+    {
+        $loggedInUserId = auth()->id();
+
+        $comments = Comment::where('parent_comment_id', $id)
+            ->with(['user', 'likes' => function ($query) use ($loggedInUserId) {
+                $query->where('user_id', $loggedInUserId);
+            }])
+            ->withCount(['likes', 'comments', 'shares'])
+            ->orderBy('created_at', 'desc')  // Order by date from newest to oldest
+            ->paginate(10)  // Paginate results, 10 per page
+            ->appends($request->query());  // Append all request query parameters except 'page'
+
+        return new CommentCollection($comments);
     }
 }

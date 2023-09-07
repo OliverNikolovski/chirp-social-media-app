@@ -1,7 +1,7 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthenticationService} from "./authentication.service";
 import {SaveCommentRequest} from "../requests/save-comment.request";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {CommentResponse} from "../responses/comment.response";
 import {Injectable} from "@angular/core";
 import {CommentsPaginationResponse} from "../responses/comments-pagination.response";
@@ -37,6 +37,10 @@ export class CommentService {
     params.set('post_id', postId.toString());
     params.set('page', page.toString());
     return this.http.get<CommentsPaginationResponse>(`${this.baseUrl}?${params.toString()}`, {headers: this.httpHeaders});
+  }
+
+  getChildCommentsForComment(commentId: number, page: number): Observable<CommentsPaginationResponse> {
+    return this.http.get<CommentsPaginationResponse>(`${this.baseUrl}/${commentId}/child-comments?page=${page}`);
   }
 
 }
