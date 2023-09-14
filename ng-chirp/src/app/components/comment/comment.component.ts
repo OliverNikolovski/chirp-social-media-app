@@ -1,4 +1,9 @@
-import {Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef} from "@angular/core";
+import {
+  Component,
+  Input,
+  ViewChild,
+  ViewContainerRef
+} from "@angular/core";
 import {AppComment} from "../../models/app-comment";
 import {LikeService} from "../../services/like.service";
 import {AddCommentComponent} from "../add-comment/add-comment.component";
@@ -10,7 +15,6 @@ import {CommentService} from "../../services/comment.service";
   styleUrls: ['comment.component.scss']
 })
 export class CommentComponent {
-//  to do: make comment section as component
   private currentPage = 1;
   hasNextPage = false;
 
@@ -33,6 +37,11 @@ export class CommentComponent {
     }
   }
 
+  onCommentIconClicked() {
+    this.loadChildComments();
+    this.displayAddComment();
+  }
+
   displayAddComment() {
     if (this.commentFormVcr.length) {
       this.commentFormVcr.clear();
@@ -41,6 +50,7 @@ export class CommentComponent {
     const componentRef = this.commentFormVcr.createComponent(AddCommentComponent);
     componentRef.instance.postId = this.comment.post_id;
     componentRef.instance.parentCommentId = this.comment.id;
+    componentRef.instance.commentAdded.subscribe(comment => this.childComments.push(comment));
   }
 
   private likeComment() {
@@ -63,7 +73,6 @@ export class CommentComponent {
     this.commentService.getChildCommentsForComment(this.comment.id, this.currentPage)
       .subscribe({
         next: response => {
-          console.log(response);
           this.childComments.push(...response.data);
           this.hasNextPage = this.currentPage === response.meta.last_page;
           this.currentPage++;
@@ -73,4 +82,9 @@ export class CommentComponent {
         }
       });
   }
+
+  trackByFn(index: number, comment: AppComment): number {
+    return comment.id;
+  }
+
 }

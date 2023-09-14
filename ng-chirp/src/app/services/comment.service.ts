@@ -40,7 +40,7 @@ export class CommentService {
   }
 
   getChildCommentsForComment(commentId: number, page: number): Observable<CommentsPaginationResponse> {
-    return this.http.get<CommentsPaginationResponse>(`${this.baseUrl}/${commentId}/child-comments?page=${page}`);
+    return this.http.get<CommentsPaginationResponse>(`${this.baseUrl}/${commentId}/child-comments?page=${page}`, {headers: this.httpHeaders});
   }
 
 }

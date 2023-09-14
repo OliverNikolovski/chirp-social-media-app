@@ -1,11 +1,7 @@
-import {Component, ElementRef, EventEmitter, Inject, Input, Output, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, Output, ViewChild} from "@angular/core";
 import {User} from "../../models/user";
-import {Post, UserInfo} from "../../models/post";
-import {PostService} from "../../services/post.service";
 import {AuthenticationService} from "../../services/authentication.service";
-import {CreatePostRequest} from "../../requests/create-post.request";
 import {CommentService} from "../../services/comment.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {NotificationService} from "../../services/notification.service";
 import {FormGroup} from "@angular/forms";
 import {SaveCommentRequest} from "../../requests/save-comment.request";
