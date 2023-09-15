@@ -72,6 +72,7 @@ export class PostViewComponent implements OnInit{
 
   onCommentAdded(comment: AppComment) {
     this.comments.unshift(comment);
+    this.post!.comments_count++;
   }
 
   onCommentIconClicked() {

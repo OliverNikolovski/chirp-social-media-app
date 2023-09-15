@@ -72,7 +72,11 @@ class PostController extends Controller
      */
     public function show(Post $post): PostResource
     {
-        $loadMissing = ['sharedPost', 'sharedComment', 'user'];
+        $loggedInUserId = auth()->id();
+
+        $loadMissing = ['sharedPost', 'sharedComment', 'user', 'likes' => function ($query) use ($loggedInUserId) {
+            $query->where('user_id', $loggedInUserId);
+        }];
 
         if (request()->query('loadComments'))
             $loadMissing[] = 'comments';
@@ -82,6 +86,7 @@ class PostController extends Controller
 
         return new PostResource($post);
     }
+
 
     /**
      * Update the specified resource in storage.
