@@ -6,6 +6,8 @@ import {NotificationService} from "../../services/notification.service";
 import {Location} from "@angular/common";
 import {CommentService} from "../../services/comment.service";
 import {AppComment} from "../../models/app-comment";
+import {DisplayAddCommentService} from "../../services/display-add-comment.service";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-post-view',
@@ -18,12 +20,23 @@ export class PostViewComponent implements OnInit{
   comments: AppComment[] = [];
   currentCommentPageNumber = 1;
   hasMoreComments = false;
+  showAddCommentComponent = false;
+
+  uuid!: string;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,
               private notificationService: NotificationService,
               private location: Location,
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private displayAddCommentService: DisplayAddCommentService) {
+    this.uuid = uuidv4();
+    this.displayAddCommentService.display$
+      .subscribe((value: string) => {
+        if (value !== this.uuid) {
+          this.showAddCommentComponent = false;
+        }
+      });
   }
 
   ngOnInit() {
@@ -59,5 +72,12 @@ export class PostViewComponent implements OnInit{
 
   onCommentAdded(comment: AppComment) {
     this.comments.unshift(comment);
+  }
+
+  onCommentIconClicked() {
+    this.showAddCommentComponent = !this.showAddCommentComponent;
+    if (this.showAddCommentComponent) {
+      this.displayAddCommentService.display$.next(this.uuid);
+    }
   }
 }

@@ -67,6 +67,7 @@
   .action {
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
   }
 
   path {
@@ -110,3 +111,29 @@
 .text-content {
   line-height: 1.8rem;
 }
+
+.like:hover {
+  svg {
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.6);
+  }
+  path {
+    stroke: red;
+  }
+  span {
+    color: red;
+  }
+}
+
+.comment:hover, .share:hover {
+  svg {
+    box-shadow: 0 0 10px 5px rgba(0, 255, 0, 0.6);
+  }
+  path {
+    stroke: green;
+  }
+  span {
+    color: green;
+  }
+}
+
+

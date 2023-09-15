@@ -8,6 +8,8 @@ import {AppComment} from "../../models/app-comment";
 import {LikeService} from "../../services/like.service";
 import {AddCommentComponent} from "../add-comment/add-comment.component";
 import {CommentService} from "../../services/comment.service";
+import {DisplayAddCommentService} from "../../services/display-add-comment.service";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-comment',
@@ -25,8 +27,18 @@ export class CommentComponent {
   @ViewChild('commentFormContainer', {read: ViewContainerRef})
   commentFormVcr!: ViewContainerRef;
 
+  uuid!: string;
+
   constructor(private likeService: LikeService,
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private displayAddCommentService: DisplayAddCommentService) {
+    this.uuid = uuidv4();
+    this.displayAddCommentService.display$
+      .subscribe((value: string) => {
+        if (value !== this.uuid) {
+          this.commentFormVcr.clear();
+        }
+      });
   }
 
   onLikeOrUnlike() {
@@ -47,6 +59,7 @@ export class CommentComponent {
       this.commentFormVcr.clear();
       return;
     }
+    this.displayAddCommentService.display$.next(this.uuid);
     const componentRef = this.commentFormVcr.createComponent(AddCommentComponent);
     componentRef.instance.postId = this.comment.post_id;
     componentRef.instance.parentCommentId = this.comment.id;
