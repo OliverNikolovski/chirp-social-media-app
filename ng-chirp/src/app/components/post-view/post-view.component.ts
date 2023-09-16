@@ -106,6 +106,7 @@ export class PostViewComponent implements OnInit {
       .subscribe({
         next: response => {
           this.comments = this.comments.filter(c => c.id !== comment.id);
+          this.post!.comments_count = this.post!.comments_count - (comment.comments_count + 1);
           this.notificationService.success(response.message, 'center', 'bottom');
         },
         error: err => this.notificationService.error(err.message, 'center', 'bottom')
