@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Post} from "../../models/post";
+import {Post, UserInfo} from "../../models/post";
 import {MatDialog} from "@angular/material/dialog";
 import {AddCommentDialog} from "../../dialogs/add-comment/add-comment.dialog";
 import {SharePostDialog} from "../../dialogs/share-post/share-post.dialog";
 import {ScrollService} from "../../services/scroll.service";
+import {User} from "../../models/user";
+import {AuthenticationService} from "../../services/authentication.service";
 
 
 @Component({
@@ -13,14 +15,19 @@ import {ScrollService} from "../../services/scroll.service";
 })
 export class PostComponent {
 
+  authenticatedUser!: User;
+
   @Input({required: true}) post!: Post;
   @Input() shared = false;
 
   @Output() like = new EventEmitter<Post>();
   @Output() unlike = new EventEmitter<Post>();
+  @Output() delete = new EventEmitter<Post>();
 
   constructor(private matDialog: MatDialog,
-              private scrollService: ScrollService) {
+              private scrollService: ScrollService,
+              private authService: AuthenticationService) {
+    this.authService.authentication$.subscribe(user => this.authenticatedUser = user);
   }
 
   onLikeOrUnlike(event: Event) {
@@ -64,5 +71,9 @@ export class PostComponent {
         this.scrollService.scrollToTop.next(true);
       }
     });
+  }
+
+  deletePost() {
+    this.delete.emit(this.post);
   }
 }

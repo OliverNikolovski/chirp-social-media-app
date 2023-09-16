@@ -4,6 +4,7 @@
   font-size: 1.1rem;
   border: 1.5px solid #f1f4f5;
   border-collapse: collapse;
+  position: relative;
 
   &:hover {
     background-color: darken(white, 2%);
@@ -144,5 +145,19 @@
   &:hover {
     box-shadow: 0 0 10px 5px rgba(0, 0, 255, 0.6);
   }
+}
+
+.edit-delete-actions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.edit-button {
+  color: #0d45a5;
+}
+
+.delete-button {
+  color: red;
 }
 

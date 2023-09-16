@@ -4,6 +4,7 @@ import {Post} from "../../models/post";
 import {ScrollService} from "../../services/scroll.service";
 import {LikeService} from "../../services/like.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {NotificationService} from "../../services/notification.service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class TimelineComponent implements OnInit {
               private scrollService: ScrollService,
               private likeService: LikeService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +33,6 @@ export class TimelineComponent implements OnInit {
 
     this.postService.postCreated$
       .subscribe(post => {
-        console.log('adding post to newly created:', post);
         this.newlyCreatedPosts.unshift(post);
       });
 
@@ -92,5 +93,16 @@ export class TimelineComponent implements OnInit {
 
   onPostClick(id: number) {
     this.router.navigate(['../post', id], {relativeTo: this.route});
+  }
+
+  onDelete(post: Post) {
+    this.postService.deletePost(post.id)
+      .subscribe({
+        next: response => {
+          this.posts = this.posts.filter(p => p.id !== post.id);
+          this.notificationService.success(response.message, 'center', 'bottom');
+        },
+        error: err => this.notificationService.error(err.message, 'center', 'bottom')
+      });
   }
 }

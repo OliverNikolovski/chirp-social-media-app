@@ -5,6 +5,7 @@ import {Observable, of} from "rxjs";
 import {CommentResponse} from "../responses/comment.response";
 import {Injectable} from "@angular/core";
 import {CommentsPaginationResponse} from "../responses/comments-pagination.response";
+import {MessageResponse} from "../responses/message.response";
 
 @Injectable({
   providedIn: 'root'
@@ -22,14 +23,18 @@ export class CommentService {
       throw Error("Unauthenticated");
 
     this.httpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': `Bearer ${this.accessToken}`
     });
   }
 
   save(request: SaveCommentRequest): Observable<CommentResponse> {
-    return this.http.post<CommentResponse>(`${this.baseUrl}`, request, {headers: this.httpHeaders});
+    const formData = new FormData();
+    request.text_content && formData.set('text_content', request.text_content);
+    request.image && formData.set('image', request.image);
+    formData.set('post_id', request.post_id.toString());
+    request.parent_comment_id && formData.set('parent_comment_id', request.parent_comment_id.toString());
+    return this.http.post<CommentResponse>(`${this.baseUrl}`, formData, {headers: this.httpHeaders});
   }
 
   getCommentsForPost(postId: number, page: number): Observable<CommentsPaginationResponse> {
@@ -41,6 +46,10 @@ export class CommentService {
 
   getChildCommentsForComment(commentId: number, page: number): Observable<CommentsPaginationResponse> {
     return this.http.get<CommentsPaginationResponse>(`${this.baseUrl}/${commentId}/child-comments?page=${page}`, {headers: this.httpHeaders});
+  }
+
+  delete(commentId: number): Observable<MessageResponse> {
+    return this.http.delete<MessageResponse>(`${this.baseUrl}/${commentId}`, {headers: this.httpHeaders});
   }
 
 }

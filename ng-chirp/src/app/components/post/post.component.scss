@@ -1,4 +1,5 @@
 .post {
+  position: relative;
   display: flex;
   padding: 1rem 3rem 1rem 1rem;
   font-size: 1.1rem;
@@ -132,4 +133,18 @@
   &:hover {
     border-color: black;
   }
+}
+
+.edit-delete-actions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.edit-button {
+  color: #0d45a5;
+}
+
+.delete-button {
+  color: red;
 }

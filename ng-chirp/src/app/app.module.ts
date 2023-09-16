@@ -34,6 +34,8 @@ import {PostViewCardComponent} from "./components/post-view-card/post-view-card.
 import {FormatDatePipe} from "./pipes/format-date.pipe";
 import {CommentComponent} from "./components/comment/comment.component";
 import {AddCommentComponent} from "./components/add-comment/add-comment.component";
+import {MatMenuModule} from "@angular/material/menu";
+import {ShowEditDeleteButtonsPipe} from "./pipes/show-edit-delete-buttons.pipe";
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import {AddCommentComponent} from "./components/add-comment/add-comment.componen
     PostViewCardComponent,
     FormatDatePipe,
     CommentComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    ShowEditDeleteButtonsPipe
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import {AddCommentComponent} from "./components/add-comment/add-comment.componen
     FormsModule,
     ScrollingModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

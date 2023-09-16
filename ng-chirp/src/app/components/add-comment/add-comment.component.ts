@@ -50,11 +50,14 @@ export class AddCommentComponent {
     this.errors = false;
 
     const request = this.getSaveCommentRequestObject(form.value.commentTextContent);
+    console.log('SAVE')
     this.commentService.save(request)
       .subscribe({
         next: response => {
           this.commentAdded.emit(response.data);
           form.get('commentTextContent')?.reset();
+          this.commentImage = null;
+          this.commentImageDataURL = null;
           this.notificationService.success('Your comment was sent', 'center', 'bottom');
         },
         error: error => {

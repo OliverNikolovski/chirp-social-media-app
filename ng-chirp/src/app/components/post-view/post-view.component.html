@@ -1,17 +1,18 @@
-<div role="button" class="back" (click)="onBack()">
-  <svg viewBox="0 0 24 24" class="back-icon">
-    <g>
-      <path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path>
-    </g>
-  </svg>
-  <span>Back</span>
+<div class="container">
+  <div role="button" class="back" (click)="onBack()">
+    <svg viewBox="0 0 24 24" class="back-icon">
+      <g>
+        <path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path>
+      </g>
+    </svg>
+    <span>Back</span>
+  </div>
+  <app-post-view-card [post]="post" *ngIf="post" (commentIconClicked)="onCommentIconClicked()" (delete)="deletePost($event)"></app-post-view-card>
+  <app-add-comment [postId]="postId" (commentAdded)="onCommentAdded($event)" *ngIf="showAddCommentComponent"></app-add-comment>
+  <div class="comment-section">
+    <app-comment *ngFor="let comment of comments" [comment]="comment" (delete)="deleteComment($event)"></app-comment>
+  </div>
+  <div class="load-btn-container" *ngIf="hasMoreComments">
+    <button mat-flat-button color="primary" type="button" (click)="loadComments()">Load more comments</button>
+  </div>
 </div>
-<app-post-view-card [post]="post" *ngIf="post" (commentIconClicked)="onCommentIconClicked()"></app-post-view-card>
-<app-add-comment [postId]="postId" (commentAdded)="onCommentAdded($event)" *ngIf="showAddCommentComponent"></app-add-comment>
-<div class="comment-section">
-  <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
-</div>
-<div class="load-btn-container" *ngIf="hasMoreComments">
-  <button mat-flat-button color="primary" type="button" (click)="loadComments()">Load more comments</button>
-</div>
-

@@ -2,6 +2,11 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Post} from "../../models/post";
 import {Router} from "@angular/router";
 import {LikeService} from "../../services/like.service";
+import {MatDialog} from "@angular/material/dialog";
+import {SharePostDialog} from "../../dialogs/share-post/share-post.dialog";
+import {NotificationService} from "../../services/notification.service";
+import {AuthenticationService} from "../../services/authentication.service";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-post-view-card',
@@ -10,11 +15,18 @@ import {LikeService} from "../../services/like.service";
 })
 export class PostViewCardComponent {
 
+  authenticatedUser!: User;
+
   @Input({required: true}) post!: Post;
   @Output() commentIconClicked = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<Post>();
 
   constructor(private router: Router,
-              private likeService: LikeService) {
+              private likeService: LikeService,
+              private matDialog: MatDialog,
+              private notificationService: NotificationService,
+              private authService: AuthenticationService) {
+    this.authService.authentication$.subscribe(user => this.authenticatedUser = user);
   }
 
   goToSharedPost(id: number) {
@@ -28,8 +40,7 @@ export class PostViewCardComponent {
   likeOrUnlike() {
     if (this.post.like_id) {
       this.unlike();
-    }
-    else {
+    } else {
       this.like();
     }
   }
@@ -55,4 +66,28 @@ export class PostViewCardComponent {
         this.post.likes_count--;
       });
   }
+
+  sharePost() {
+    const dialogRef = this.matDialog.open(SharePostDialog, {
+      data: {
+        post: this.post,
+        panelClass: 'scrollable-dialog',
+        maxHeight: '70vh',
+        width: '50vw'
+      }
+    });
+
+    dialogRef.afterClosed()
+      .subscribe((created: boolean) => {
+        if (created) {
+          this.post.shares_count++;
+          this.notificationService.success('Post successfully shared', 'center', 'bottom');
+        }
+      })
+  }
+
+  onDelete() {
+    this.delete.emit(this.post);
+  }
+
 }

@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {PostService} from "../../services/post.service";
 import {AuthenticationService} from "../../services/authentication.service";
 import {User} from "../../models/user";
+import {AppComment} from "../../models/app-comment";
 
 @Component({
   selector: 'share-post',
@@ -14,7 +15,7 @@ export class SharePostDialog {
   authenticatedUser!: User;
 
   constructor(public matDialogRef: MatDialogRef<SharePostDialog>,
-              @Inject(MAT_DIALOG_DATA) public data: { post: Post },
+              @Inject(MAT_DIALOG_DATA) public data: { post: Post | AppComment },
               private postService: PostService,
               private authService: AuthenticationService) {
     this.authService.authentication$.subscribe(auth => this.authenticatedUser = auth);

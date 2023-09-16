@@ -24,6 +24,9 @@
     <div class="shared-post" *ngIf="post.shared_post">
       <app-post [post]="post.shared_post" [shared]="true"></app-post>
     </div>
+    <div class="shared-post" *ngIf="post.shared_comment">
+      <app-comment [comment]="post.shared_comment" [shared]="true"></app-comment>
+    </div>
     <div class="post-details-item actions" *ngIf="!shared">
       <div class="actions-item likes" role="button" (click)="onLikeOrUnlike($event)" [class.liked-post]="post.like_id">
         <svg viewBox="0 0 24 24" class="svg-action-icon likes-icon">
@@ -50,5 +53,14 @@
         <span>{{post.shares_count}}</span>
       </div>
     </div>
+  </div>
+  <div class="edit-delete-actions" *ngIf="authenticatedUser | showEditDeleteButtons:post.user:shared">
+    <div (click)="$event.stopPropagation()">
+      <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item class="edit-button">Edit</button>
+      <button mat-menu-item class="delete-button" (click)="deletePost()">Delete</button>
+    </mat-menu>
   </div>
 </div>

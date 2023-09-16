@@ -1,6 +1,6 @@
 import {
-  Component,
-  Input,
+  Component, EventEmitter,
+  Input, Output,
   ViewChild,
   ViewContainerRef
 } from "@angular/core";
@@ -10,6 +10,11 @@ import {AddCommentComponent} from "../add-comment/add-comment.component";
 import {CommentService} from "../../services/comment.service";
 import {DisplayAddCommentService} from "../../services/display-add-comment.service";
 import {v4 as uuidv4} from 'uuid';
+import {MatDialog} from "@angular/material/dialog";
+import {SharePostDialog} from "../../dialogs/share-post/share-post.dialog";
+import {NotificationService} from "../../services/notification.service";
+import {AuthenticationService} from "../../services/authentication.service";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-comment',
@@ -17,12 +22,16 @@ import {v4 as uuidv4} from 'uuid';
   styleUrls: ['comment.component.scss']
 })
 export class CommentComponent {
+  authenticatedUser!: User;
   private currentPage = 1;
   hasNextPage = false;
 
   childComments: AppComment[] = [];
 
   @Input({required: true}) comment!: AppComment;
+  @Input() shared = false;
+
+  @Output() delete = new EventEmitter<AppComment>();
 
   @ViewChild('commentFormContainer', {read: ViewContainerRef})
   commentFormVcr!: ViewContainerRef;
@@ -31,7 +40,11 @@ export class CommentComponent {
 
   constructor(private likeService: LikeService,
               private commentService: CommentService,
-              private displayAddCommentService: DisplayAddCommentService) {
+              private displayAddCommentService: DisplayAddCommentService,
+              private matDialog: MatDialog,
+              private notificationService: NotificationService,
+              private authService: AuthenticationService) {
+    this.authService.authentication$.subscribe(user => this.authenticatedUser = user);
     this.uuid = uuidv4();
     this.displayAddCommentService.display$
       .subscribe((value: string) => {
@@ -63,7 +76,10 @@ export class CommentComponent {
     const componentRef = this.commentFormVcr.createComponent(AddCommentComponent);
     componentRef.instance.postId = this.comment.post_id;
     componentRef.instance.parentCommentId = this.comment.id;
-    componentRef.instance.commentAdded.subscribe(comment => this.childComments.push(comment));
+    componentRef.instance.commentAdded.subscribe(comment => {
+      this.childComments.push(comment);
+      this.comment.comments_count++;
+    });
   }
 
   private likeComment() {
@@ -100,4 +116,24 @@ export class CommentComponent {
     return comment.id;
   }
 
+  onShare() {
+    const dialogRef = this.matDialog.open(SharePostDialog, {
+      data: { post: this.comment } ,
+      panelClass: 'scrollable-dialog',
+      maxHeight: '70vh',
+      width: '50vw'
+    });
+
+    dialogRef.afterClosed()
+      .subscribe((created: boolean) => {
+        if (created) {
+          this.comment.shares_count++;
+          this.notificationService.success('Comment successfully shared', 'center', 'bottom');
+        }
+      });
+  }
+
+  deleteComment() {
+    this.delete.emit(this.comment);
+  }
 }

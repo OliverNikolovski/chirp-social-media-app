@@ -6,6 +6,7 @@ import {AuthenticationService} from "./authentication.service";
 import {PostsPaginationResponse} from "../responses/posts-pagination-response";
 import {PostResponse} from "../responses/post.response";
 import {CreatePostRequest} from "../requests/create-post.request";
+import {MessageResponse} from "../responses/message.response";
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,11 @@ export class PostService {
     const headers = {'Authorization': `Bearer ${this.accessToken}`};
 
     return this.http.post<PostResponse>(`${this.baseUrl}`, formData, {headers});
+  }
+
+  deletePost(postId: number): Observable<MessageResponse> {
+    const headers = {'Authorization': `Bearer ${this.accessToken}`};
+    return this.http.delete<MessageResponse>(`${this.baseUrl}/${postId}`, {headers});
   }
 
 }

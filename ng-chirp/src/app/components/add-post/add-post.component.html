@@ -12,8 +12,11 @@
     <div *ngIf="postImageDataURL">
       <img [src]="postImageDataURL" alt="selected image" class="selected-image"/>
     </div>
-    <div class="embedded-post" *ngIf="share">
-      <app-post [post]="share" [shared]="true"></app-post>
+    <div class="embedded-post" *ngIf="share && sharingPost">
+      <app-post [post]="postCasted" [shared]="true"></app-post>
+    </div>
+    <div class="embedded-post" *ngIf="share && !sharingPost">
+      <app-comment [comment]="commentCasted"></app-comment>
     </div>
     <div class="actions">
       <div>

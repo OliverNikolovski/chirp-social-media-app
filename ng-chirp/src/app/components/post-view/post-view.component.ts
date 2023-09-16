@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post";
 import {NotificationService} from "../../services/notification.service";
@@ -8,13 +8,14 @@ import {CommentService} from "../../services/comment.service";
 import {AppComment} from "../../models/app-comment";
 import {DisplayAddCommentService} from "../../services/display-add-comment.service";
 import {v4 as uuidv4} from 'uuid';
+import {filter, map} from "rxjs";
 
 @Component({
   selector: 'app-post-view',
   templateUrl: 'post-view.component.html',
   styleUrls: ['post-view.component.scss']
 })
-export class PostViewComponent implements OnInit{
+export class PostViewComponent implements OnInit {
   postId!: number;
   post?: Post;
   comments: AppComment[] = [];
@@ -29,7 +30,8 @@ export class PostViewComponent implements OnInit{
               private notificationService: NotificationService,
               private location: Location,
               private commentService: CommentService,
-              private displayAddCommentService: DisplayAddCommentService) {
+              private displayAddCommentService: DisplayAddCommentService,
+              private router: Router) {
     this.uuid = uuidv4();
     this.displayAddCommentService.display$
       .subscribe((value: string) => {
@@ -41,8 +43,14 @@ export class PostViewComponent implements OnInit{
 
   ngOnInit() {
     this.postId = +this.route.snapshot.paramMap.get('id')!;
-    this.loadPost();
-    this.loadComments();
+    this.route.paramMap.pipe(
+      filter((paramMap: ParamMap) => paramMap.has('id')),
+      map((paramMap: ParamMap) => +paramMap.get('id')!)
+    ).subscribe(id => {
+      this.postId = id;
+      this.loadPost();
+      this.loadComments();
+    });
   }
 
   onBack() {
@@ -80,5 +88,27 @@ export class PostViewComponent implements OnInit{
     if (this.showAddCommentComponent) {
       this.displayAddCommentService.display$.next(this.uuid);
     }
+  }
+
+  deletePost(post: Post) {
+    this.postService.deletePost(post.id)
+      .subscribe({
+        next: response => {
+          this.notificationService.success(response.message, 'center', 'bottom');
+          this.router.navigate(['/home']);
+        },
+        error: err => this.notificationService.error(err.message, 'center', 'bottom')
+      });
+  }
+
+  deleteComment(comment: AppComment) {
+    this.commentService.delete(comment.id)
+      .subscribe({
+        next: response => {
+          this.comments = this.comments.filter(c => c.id !== comment.id);
+          this.notificationService.success(response.message, 'center', 'bottom');
+        },
+        error: err => this.notificationService.error(err.message, 'center', 'bottom')
+      })
   }
 }
