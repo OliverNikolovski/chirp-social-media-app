@@ -1,6 +1,7 @@
 <div class="post">
   <div class="user-profile-picture-container">
-    <img [src]="post.user.profile_picture | profilePicOrDefault" alt="user profile picture" class="user-profile-picture"/>
+    <img [src]="post.user.profile_picture | profilePicOrDefault" alt="user profile picture"
+         class="user-profile-picture"/>
   </div>
   <div class="post-details">
     <div class="post-details-item header">
@@ -54,27 +55,15 @@
       </div>
     </div>
   </div>
-  <ng-container *ngIf="!shared">
-    <ng-container *ngIf="authenticatedUser | showEditDeleteButtons:post.user; else follow">
-      <div class="edit-delete-actions">
-        <div (click)="$event.stopPropagation()">
-          <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
-        </div>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item class="edit-button">Edit</button>
-          <button mat-menu-item class="delete-button" (click)="deletePost()">Delete</button>
-        </mat-menu>
+  <ng-container *ngIf="authenticatedUser | showEditDeleteButtons:post.user:shared">
+    <div class="edit-delete-actions">
+      <div (click)="$event.stopPropagation()">
+        <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
       </div>
-    </ng-container>
-    <ng-template #follow>
-      <div class="edit-delete-actions">
-        <div (click)="$event.stopPropagation()">
-          <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
-        </div>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item class="edit-button" (click)="unfollowUser(post.user.id)">Unfollow</button>
-        </mat-menu>
-      </div>
-    </ng-template>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="edit-button">Edit</button>
+        <button mat-menu-item class="delete-button" (click)="deletePost()">Delete</button>
+      </mat-menu>
+    </div>
   </ng-container>
 </div>
