@@ -6,6 +6,7 @@ import {SharePostDialog} from "../../dialogs/share-post/share-post.dialog";
 import {ScrollService} from "../../services/scroll.service";
 import {User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication.service";
+import {FollowUnfollowService} from "../../services/follow-unfollow.service";
 
 
 @Component({
@@ -26,7 +27,8 @@ export class PostComponent {
 
   constructor(private matDialog: MatDialog,
               private scrollService: ScrollService,
-              private authService: AuthenticationService) {
+              private authService: AuthenticationService,
+              private followService: FollowUnfollowService) {
     this.authService.authentication$.subscribe(user => this.authenticatedUser = user);
   }
 
@@ -75,5 +77,9 @@ export class PostComponent {
 
   deletePost() {
     this.delete.emit(this.post);
+  }
+
+  unfollowUser(id: number) {
+    // this.followService.unfollow();
   }
 }

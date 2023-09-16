@@ -54,13 +54,27 @@
       </div>
     </div>
   </div>
-  <div class="edit-delete-actions" *ngIf="authenticatedUser | showEditDeleteButtons:post.user:shared">
-    <div (click)="$event.stopPropagation()">
-      <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
-    </div>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item class="edit-button">Edit</button>
-      <button mat-menu-item class="delete-button" (click)="deletePost()">Delete</button>
-    </mat-menu>
-  </div>
+  <ng-container *ngIf="!shared">
+    <ng-container *ngIf="authenticatedUser | showEditDeleteButtons:post.user; else follow">
+      <div class="edit-delete-actions">
+        <div (click)="$event.stopPropagation()">
+          <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
+        </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item class="edit-button">Edit</button>
+          <button mat-menu-item class="delete-button" (click)="deletePost()">Delete</button>
+        </mat-menu>
+      </div>
+    </ng-container>
+    <ng-template #follow>
+      <div class="edit-delete-actions">
+        <div (click)="$event.stopPropagation()">
+          <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
+        </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item class="edit-button" (click)="unfollowUser(post.user.id)">Unfollow</button>
+        </mat-menu>
+      </div>
+    </ng-template>
+  </ng-container>
 </div>
