@@ -6,7 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SharePostDialog} from "../../dialogs/share-post/share-post.dialog";
 import {NotificationService} from "../../services/notification.service";
 import {AuthenticationService} from "../../services/authentication.service";
-import {User} from "../../models/user";
+import {UserResponse} from "../../responses/user.response";
 
 @Component({
   selector: 'app-post-view-card',
@@ -15,7 +15,7 @@ import {User} from "../../models/user";
 })
 export class PostViewCardComponent {
 
-  authenticatedUser!: User;
+  authenticatedUser!: UserResponse;
 
   @Input({required: true}) post!: Post;
   @Output() commentIconClicked = new EventEmitter<void>();

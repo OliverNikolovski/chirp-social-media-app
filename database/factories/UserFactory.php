@@ -27,7 +27,8 @@ class UserFactory extends Factory
             'location' => $this->faker->optional(0.3)->address(),
             'website' => $this->faker->optional(0.7)->url(),
             'birthdate' => $this->faker->optional(0.3)->dateTimeBetween('-60 years', '-18 years'),
-            'is_admin' => $this->faker->boolean(5)
+            'is_admin' => $this->faker->boolean(10),
+            'profile_picture' => $this->faker->imageUrl()
         ];
     }
 

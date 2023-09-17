@@ -4,7 +4,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddCommentDialog} from "../../dialogs/add-comment/add-comment.dialog";
 import {SharePostDialog} from "../../dialogs/share-post/share-post.dialog";
 import {ScrollService} from "../../services/scroll.service";
-import {User} from "../../models/user";
+import {UserResponse} from "../../responses/user.response";
 import {AuthenticationService} from "../../services/authentication.service";
 import {FollowUnfollowService} from "../../services/follow-unfollow.service";
 
@@ -16,7 +16,7 @@ import {FollowUnfollowService} from "../../services/follow-unfollow.service";
 })
 export class PostComponent {
 
-  authenticatedUser!: User;
+  authenticatedUser!: UserResponse;
 
   @Input({required: true}) post!: Post;
   @Input() shared = false;

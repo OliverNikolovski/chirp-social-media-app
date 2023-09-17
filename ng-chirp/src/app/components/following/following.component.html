@@ -1,0 +1,16 @@
+<div class="followings-page">
+  <h1>People You Are Following</h1>
+  <div class="followings-list" *ngIf="followings?.length">
+    <div class="following-card" *ngFor="let following of followings" (click)="onFollowingClick(following.id)">
+      <img [src]="following.profile_picture | profilePicOrDefault" alt="{{following.name}}'s picture">
+      <div>
+        <h2>{{following.name}}</h2>
+        <p>@{{following.username}}</p>
+      </div>
+    </div>
+  </div>
+  <p *ngIf="!followings?.length && !loading">You are not following anyone yet.</p>
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

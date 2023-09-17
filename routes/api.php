@@ -31,6 +31,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout-from-all-devices', [AuthController::class, 'logoutFromAllDevices']);
     Route::get('/authentication', [AuthController::class, 'getAuthenticatedUser']);
     Route::get('/comments/{id}/child-comments', [CommentController::class, 'childComments']);
+    Route::get('/users/{id}/posts', [UserController::class, 'getUserPosts']);
+    Route::get('/follow/check/{follower_id}/{followed_id}', [FollowController::class, 'checkFollow']);
+    Route::get('/users/search', [UserController::class, 'searchUsers']);
+    Route::get('/users/followers', [UserController::class, 'getFollowers']);
+    Route::get('/users/following', [UserController::class, 'getFollowing']);
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Api', 'middleware' => 'auth:sanctum'], function () {

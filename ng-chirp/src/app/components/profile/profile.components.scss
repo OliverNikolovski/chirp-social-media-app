@@ -1,0 +1,87 @@
+.container {
+  border-collapse: collapse;
+}
+
+.profile-info-card {
+  display: flex;
+  flex-direction: column;
+  padding: 8rem 2.5rem 5rem;
+  border: 2px solid #f1f4f5;
+  background: linear-gradient(to bottom, #cfd9de 0%, #cfd9de 35%, white 35%, white 100%);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+  }
+}
+
+.info {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-name-container {
+  min-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .name {
+    font-size: 1.7rem;
+    font-weight: bold;
+  }
+
+  .username {
+    color: #677682;
+    font-size: 1.5rem;
+  }
+}
+
+.date-created {
+  margin-top: 1.8rem;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+
+  span {
+    color: #677682;
+    margin-left: 0.5rem;
+  }
+}
+
+.follow-statistics {
+  display: flex;
+  margin-top: 1.8rem;
+  font-size: 1.3rem;
+  color: #677682;
+
+  .followers {
+    margin-left: 3rem;
+  }
+
+  span {
+    color: black;
+    font-weight: bold;
+  }
+}
+
+.loading-spinner {
+  display: grid;
+  place-items: center;
+  margin-top: 20px;
+}
+
+.load-posts-button {
+  text-align: center;
+}
+
+

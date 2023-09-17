@@ -36,6 +36,10 @@ import {CommentComponent} from "./components/comment/comment.component";
 import {AddCommentComponent} from "./components/add-comment/add-comment.component";
 import {MatMenuModule} from "@angular/material/menu";
 import {ShowEditDeleteButtonsPipe} from "./pipes/show-edit-delete-buttons.pipe";
+import {ProfileComponent} from "./components/profile/profile.component";
+import {IsSameUserPipe} from "./pipes/is-same-user.pipe";
+import {FollowersComponent} from "./components/followers/followers.component";
+import {FollowingComponent} from "./components/following/following.component";
 
 @NgModule({
   declarations: [
@@ -58,7 +62,11 @@ import {ShowEditDeleteButtonsPipe} from "./pipes/show-edit-delete-buttons.pipe";
     FormatDatePipe,
     CommentComponent,
     AddCommentComponent,
-    ShowEditDeleteButtonsPipe
+    ShowEditDeleteButtonsPipe,
+    ProfileComponent,
+    IsSameUserPipe,
+    FollowersComponent,
+    FollowingComponent
   ],
   imports: [
     BrowserModule,

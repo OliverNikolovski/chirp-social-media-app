@@ -12,8 +12,8 @@ class CommentSeeder extends Seeder
      */
     public function run(): void
     {
-        // Making 30% of all comments to be child comments, maybe this should be adjusted to reflect reality better
-        Comment::all()->random(Comment::count() * 0.3)->each(function ($comment) {
+        // Making 30% of all comments to be child comments
+        Comment::all()->random(Comment::count() * 0.5)->each(function ($comment) {
             $parent_comment = Comment::where('id', '!=', $comment->id)->inRandomOrder()->first();
             $comment->update(['parent_comment_id' => $parent_comment->id]);
         });

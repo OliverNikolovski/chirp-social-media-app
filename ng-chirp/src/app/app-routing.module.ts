@@ -5,6 +5,9 @@ import {HomeComponent} from "./components/home/home.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {CenterPanelComponent} from "./components/center-panel/center-panel.component";
 import {PostViewComponent} from "./components/post-view/post-view.component";
+import {ProfileComponent} from "./components/profile/profile.component";
+import {FollowersComponent} from "./components/followers/followers.component";
+import {FollowingComponent} from "./components/following/following.component";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'login'},
@@ -24,6 +27,18 @@ const routes: Routes = [
       {
         path: 'post/:id',
         component: PostViewComponent
+      },
+      {
+        path: 'profile/:id',
+        component: ProfileComponent
+      },
+      {
+        path: 'followers',
+        component: FollowersComponent
+      },
+      {
+        path: 'following',
+        component: FollowingComponent
       }
     ]
   }

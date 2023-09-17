@@ -19,19 +19,18 @@ return new class extends Migration {
         });
 
         Schema::table('posts', function (Blueprint $table) {
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
+            $table->foreign('post_id', 'posts_post_id_foreign')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('comment_id', 'posts_comment_id_foreign')->references('id')->on('comments')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropForeign(['post_id', 'comment_id']);
+            $table->dropForeign('posts_post_id_foreign');
+            $table->dropForeign('posts_comment_id_foreign');
             $table->dropColumn(['post_id', 'comment_id']);
         });
     }
+
 };

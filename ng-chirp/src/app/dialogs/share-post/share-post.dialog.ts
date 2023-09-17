@@ -3,7 +3,7 @@ import {Post} from "../../models/post";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {PostService} from "../../services/post.service";
 import {AuthenticationService} from "../../services/authentication.service";
-import {User} from "../../models/user";
+import {UserResponse} from "../../responses/user.response";
 import {AppComment} from "../../models/app-comment";
 
 @Component({
@@ -12,7 +12,7 @@ import {AppComment} from "../../models/app-comment";
   styleUrls: ['share-post.dialog.scss']
 })
 export class SharePostDialog {
-  authenticatedUser!: User;
+  authenticatedUser!: UserResponse;
 
   constructor(public matDialogRef: MatDialogRef<SharePostDialog>,
               @Inject(MAT_DIALOG_DATA) public data: { post: Post | AppComment },

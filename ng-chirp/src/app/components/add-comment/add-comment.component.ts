@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, Output, ViewChild} from "@angular/core";
-import {User} from "../../models/user";
+import {Component, ElementRef, EventEmitter, Inject, Input, Output, ViewChild} from "@angular/core";
+import {UserResponse} from "../../responses/user.response";
 import {AuthenticationService} from "../../services/authentication.service";
 import {CommentService} from "../../services/comment.service";
 import {NotificationService} from "../../services/notification.service";
@@ -19,7 +19,7 @@ interface CommentForm {
   styleUrls: ['add-comment.component.scss']
 })
 export class AddCommentComponent {
-  authenticatedUser!: User;
+  authenticatedUser!: UserResponse;
   commentImageDataURL: string | ArrayBuffer | null = '';
   errors = false;
   commentImage: File | null = null;

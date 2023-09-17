@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="profile-info-card" *ngIf="details">
+    <div class="header">
+      <img [src]="details.profile_picture | profilePicOrDefault" alt="user profile picture"/>
+      <ng-container *ngIf="authenticatedUser | isSameUser:details; else otherUser">
+        <button mat-stroked-button color="primary">Edit profile</button>
+      </ng-container>
+      <ng-template #otherUser>
+        <ng-container *ngIf="isAuthenticatedUserFollowingThisUser; else notFollowing">
+          <button mat-flat-button color="warn" (click)="unfollowUser()">Unfollow</button>
+        </ng-container>
+        <ng-template #notFollowing>
+          <button mat-flat-button color="primary" (click)="followUser()">Follow</button>
+        </ng-template>
+      </ng-template>
+    </div>
+    <div class="info">
+      <div class="user-name-container">
+        <div class="name">
+          <span>{{details.name}}</span>
+        </div>
+        <div class="username">
+          <span>@{{details.username}}</span>
+        </div>
+      </div>
+      <div class="date-created">
+        <mat-icon>calendar_today</mat-icon>
+        <span>Joined {{details.created_at | formatDate:'MMMM yyyy'}}</span>
+      </div>
+      <div class="follow-statistics">
+        <div class="following">
+          <span>{{details.following_count}}</span> Following
+        </div>
+        <div class="followers">
+          <span>{{details.followers_count}}</span> Followers
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1 style="margin-top: 5rem" *ngIf="!posts.length && !arePostsLoading">This user hasn't posted anything yet.</h1>
+  <div class="timeline">
+    <ng-container *ngFor="let post of posts">
+      <app-post [post]="post"></app-post>
+    </ng-container>
+    <div class="load-posts-button" *ngIf="!arePostsLoading && hasNextPage">
+      <button mat-flat-button color="primary" (click)="loadMorePosts()">Load More Posts</button>
+    </div>
+    <div *ngIf="arePostsLoading" class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>

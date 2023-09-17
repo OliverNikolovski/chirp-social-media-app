@@ -1,2 +1,2 @@
-User-agent: *
+UserResponse-agent: *
 Disallow:

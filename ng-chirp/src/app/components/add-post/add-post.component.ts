@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   ViewChild
 } from "@angular/core";
-import {User} from "../../models/user";
+import {UserResponse} from "../../responses/user.response";
 import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post";
 import {CreatePostRequest} from "../../requests/create-post.request";
@@ -23,7 +23,7 @@ import {AppComment} from "../../models/app-comment";
 })
 export class AddPostComponent implements OnInit {
 
-  authenticatedUser!: User;
+  authenticatedUser!: UserResponse;
   @Input() share?: Post | AppComment;
 
   @ViewChild('postInput') postInput!: ElementRef;

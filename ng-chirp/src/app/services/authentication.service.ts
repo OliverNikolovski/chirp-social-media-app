@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, ReplaySubject, tap} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {User} from "../models/user";
+import {UserResponse} from "../responses/user.response";
 import {AccessTokenResponse} from "../responses/access-token-response";
 import {UserRegisterRequest} from "../requests/user-register.request";
 
@@ -17,7 +17,7 @@ export class AuthenticationService {
   };
   private baseUrl = 'http://localhost:8000/api';
 
-  public authentication$ = new ReplaySubject<User>(1);
+  public authentication$ = new ReplaySubject<UserResponse>(1);
 
   constructor(private http: HttpClient) {
   }
@@ -31,14 +31,22 @@ export class AuthenticationService {
   }
 
   logout():Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/logout`, {})
+    const accessToken = localStorage.getItem("accessToken");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    }
+    return this.http.post<void>(`${this.baseUrl}/logout`, {}, {headers})
       .pipe(
         tap(_ => this.removeAccessToken())
       );
   }
 
   logoutFromAllDevices(): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/logout-from-all-devices`, {})
+    const accessToken = localStorage.getItem("accessToken");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    }
+    return this.http.post<void>(`${this.baseUrl}/logout-from-all-devices`, {}, {headers})
       .pipe(
         tap(_ => this.removeAccessToken())
       );
@@ -64,12 +72,12 @@ export class AuthenticationService {
       );
   }
 
-  fetchAuthenticatedUser(): Observable<User> {
+  fetchAuthenticatedUser(): Observable<UserResponse> {
     const accessToken = localStorage.getItem("accessToken");
     const headers = {
       Authorization: `Bearer ${accessToken}`
     }
-    return this.http.get<User>(`${this.baseUrl}/authentication`, {headers});
+    return this.http.get<UserResponse>(`${this.baseUrl}/authentication`, {headers});
   }
 
   getAccessToken(): string | null {

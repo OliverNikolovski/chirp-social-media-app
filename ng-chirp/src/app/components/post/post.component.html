@@ -6,10 +6,10 @@
   <div class="post-details">
     <div class="post-details-item header">
       <div class="header-item">
-        <a href="" class="name">{{post.user.name}}</a>
+        <a [routerLink]="['/home/profile', post.user.id]" class="name">{{post.user.name}}</a>
       </div>
       <div class="header-item">
-        <a href="" class="username">@{{post.user.username}}</a>
+        <a [routerLink]="['/home/profile', post.user.id]" class="username">@{{post.user.username}}</a>
       </div>
       <span class="header-item dot-separator">.</span>
       <div class="header-item">
@@ -61,7 +61,7 @@
         <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
       </div>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item class="edit-button">Edit</button>
+<!--        <button mat-menu-item class="edit-button">Edit</button>-->
         <button mat-menu-item class="delete-button" (click)="deletePost()">Delete</button>
       </mat-menu>
     </div>

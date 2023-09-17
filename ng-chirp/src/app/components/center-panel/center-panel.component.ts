@@ -1,5 +1,5 @@
 import {Component, HostListener, Input} from "@angular/core";
-import {User} from "../../models/user";
+import {UserResponse} from "../../responses/user.response";
 import {Post} from "../../models/post";
 
 @Component({

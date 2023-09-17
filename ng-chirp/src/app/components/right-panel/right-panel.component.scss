@@ -1,2 +1,36 @@
 .right-panel {
 }
+
+.user-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken(white, 10%);
+  }
+}
+
+.profile-picture img {
+  width: 3.5rem;
+}
+
+.user-name-container {
+  display: flex;
+  flex-direction: column;
+
+  .name span {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .username span {
+    font-size: 1rem;
+    color: #677682;
+  }
+}
+
+.full-width {
+  width: 100%;
+}

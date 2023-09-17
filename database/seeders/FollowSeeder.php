@@ -13,7 +13,7 @@ class FollowSeeder extends Seeder
     public function run(): void
     {
         Follow::factory()
-            ->count(500)
+            ->count(1000)
             ->create();
     }
 }

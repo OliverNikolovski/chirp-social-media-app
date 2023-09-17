@@ -14,18 +14,18 @@ class PostSeeder extends Seeder
     public function run(): void
     {
         Post::factory()
-            ->has(Comment::factory()->count(5))
-            ->count(10)
+            ->has(Comment::factory()->count(20))
+            ->count(100)
             ->create();
 
         Post::factory()
             ->has(Comment::factory()->count(10))
-            ->count(5)
+            ->count(200)
             ->create();
 
         Post::factory()
-            ->has(Comment::factory()->count(20))
-            ->count(2)
+            ->has(Comment::factory()->count(50))
+            ->count(50)
             ->create();
     }
 }

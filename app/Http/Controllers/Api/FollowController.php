@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFollowRequest;
 use App\Models\Follow;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class FollowController extends Controller
 {
@@ -44,4 +46,20 @@ class FollowController extends Controller
                 ->setStatusCode(422);
         }
     }
+
+    public function checkFollow(Request $request, $follower_id, $followed_id): JsonResponse
+    {
+        $follow = DB::table('follows')
+            ->where('follower_id', $follower_id)
+            ->where('followed_id', $followed_id)
+            ->first();
+
+        $isFollowing = $follow !== null;
+
+        return response()->json([
+            'is_following' => $isFollowing,
+            'follow' => $follow,
+        ]);
+    }
+
 }

@@ -1,1 +1,22 @@
-<div class="panel right-panel"></div>
+<div class="panel right-panel">
+  <mat-form-field class="full-width">
+    <mat-label>Search users</mat-label>
+    <input type="text" matInput #searchBox (input)="search(searchBox.value)"/>
+  </mat-form-field>
+
+  <div class="searched-users-container">
+    <div class="user-card" *ngFor="let user of users$ | async" (click)="onUserClick(user.id)">
+      <div class="profile-picture">
+        <img [src]="user.profile_picture | profilePicOrDefault"/>
+      </div>
+      <div class="user-name-container">
+        <div class="name">
+          <span>{{user.name}}</span>
+        </div>
+        <div class="username">
+          <span>@{{user.username}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

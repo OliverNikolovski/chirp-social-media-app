@@ -4,6 +4,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Post} from "../models/post";
 import {AuthenticationService} from "./authentication.service";
 import {MessageResponse} from "../responses/message.response";
+import {IsFollowingResponse} from "../responses/is-following.response";
+import {FollowResponse} from "../responses/follow.response";
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +31,16 @@ export class FollowUnfollowService {
     });
   }
 
-  follow(followed_id: number): Observable<any> {
+  follow(followed_id: number): Observable<FollowResponse> {
     return this.http.post<any>(`${this.baseUrl}`, {followed_id}, {headers: this.httpHeaders});
   }
 
   unfollow(id: number): Observable<MessageResponse> {
     return this.http.delete<MessageResponse>(`${this.baseUrl}/${id}`, {headers: this.httpHeaders});
+  }
+
+  checkFollow(followerId: number, followedId: number): Observable<IsFollowingResponse> {
+    return this.http.get<IsFollowingResponse>(`${this.baseUrl}/check/${followerId}/${followedId}`, {headers: this.httpHeaders});
   }
 
 }

@@ -14,7 +14,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SharePostDialog} from "../../dialogs/share-post/share-post.dialog";
 import {NotificationService} from "../../services/notification.service";
 import {AuthenticationService} from "../../services/authentication.service";
-import {User} from "../../models/user";
+import {UserResponse} from "../../responses/user.response";
 
 @Component({
   selector: 'app-comment',
@@ -22,7 +22,7 @@ import {User} from "../../models/user";
   styleUrls: ['comment.component.scss']
 })
 export class CommentComponent {
-  authenticatedUser!: User;
+  authenticatedUser!: UserResponse;
   private currentPage = 1;
   hasNextPage = false;
 
