@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
     request.profile_picture = this.selectedProfilePicture;
     this.authService.register(request)
       .subscribe({
-        next: _ => this.router.navigate(['home']),
+        next: _ => this.router.navigate(['login']),
         error: error => this.notificationService.error(error.message)
       })
   }

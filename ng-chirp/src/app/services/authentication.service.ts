@@ -66,10 +66,7 @@ export class AuthenticationService {
     const headers = {
       'Accept': 'application/json'
     }
-    return this.http.post<AccessTokenResponse>(`${this.baseUrl}/register`, formData, {headers})
-      .pipe(
-        tap(accessTokenResponse => this.saveAccessToken(accessTokenResponse))
-      );
+    return this.http.post<AccessTokenResponse>(`${this.baseUrl}/register`, formData, {headers});
   }
 
   fetchAuthenticatedUser(): Observable<UserResponse> {

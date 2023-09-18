@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <p *ngIf="!followers?.length && !loading">You have no followers yet.</p>
+  <h2 *ngIf="!followers?.length && !loading">You have no followers yet.</h2>
   <div *ngIf="loading" class="loading-spinner">
     <mat-spinner></mat-spinner>
   </div>
